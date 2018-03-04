@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SymbolIndex.Data;
+using SymbolIndex.Models;
 
 namespace SymbolIndex.Controllers
 {
     public class HomeController : Controller
     {
+        SIContext db = new SIContext();
+
+
         public ActionResult Index()
         {
-            return View();
+            var font = db.Fonts.FirstOrDefault();
+
+            return View(font);
         }
 
         public ActionResult About()
