@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Assets/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="~/Assets/css/mycss.css">
-    <link rel="stylesheet" href="~/Assets/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap-select.min.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-custom navbar-dark bg-dark fixed-top">
@@ -31,13 +31,13 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
 
-                    <select id="ddl_font" name="ddl_font"
+                    @*<select id="ddl_font" name="ddl_font"
                             class="selectpicker" data-live-search="true">
                         @foreach (var font in fonts)
                         {
                             <option value="@font.Id">@font.FontName</option>
                         }
-                    </select>
+                    </select>*@
 
                     @*<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,8 +68,17 @@
 
     <div id="font_id" class="hidden">0</div>
     <div class="container" style="margin-top: 50px">
+
+        <select id="ddl_font" name="ddl_font"
+                class="selectpicker" data-live-search="true">
+            @foreach (var font in fonts)
+            {
+                <option value="@font.Id">@font.FontName</option>
+            }
+        </select>
+
         <div class="row row-padding-top">
-            @foreach(var symbol in symbols)
+            @foreach (var symbol in symbols)
 
             {
                 <div class="symbol-container">
@@ -79,13 +88,13 @@
                         </div>
 
                         <div class="key">
-                            @if(symbol.Tags != null && symbol.Tags.Count > 0)
+                            @if (symbol.Tags != null && symbol.Tags.Count > 0)
                             {
                                 <text>@symbol.Tags.ElementAt(0).TagString</text>
                             }
-                            @if(symbol.Tags.Count > 1)
+                            @if (symbol.Tags.Count > 1)
                             {
-                                foreach(SymbolIndex.Models.Tag tag in symbol.Tags)
+                                foreach (SymbolIndex.Models.Tag tag in symbol.Tags)
                                 {
                                     <text>, @tag.TagString</text>
                                 }
@@ -94,15 +103,16 @@
                     </div>
                 </div>
             }
-            
+
         </div>
     </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="~/Assets/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/umd/popper.min.js"></script>
     <script src="~/Assets/js/bootstrap.min.js"></script>
-    <script src="~/Assets/js/bootstrap-select.min.js"></script>
+    <script src="~/Scripts/bootstrap-select.min.js"></script>
 
     <script type="text/javascript">
 
