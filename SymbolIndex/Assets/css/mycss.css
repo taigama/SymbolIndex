@@ -1,3 +1,7 @@
+body{
+    background-color: #EEE
+}
+
 .navbar-icon {
     height: 30px;
     width: auto;
@@ -38,6 +42,7 @@
     border-style: solid;
     border-radius: 10px;
     border-width: 0.5px;
+    background-color: #FFF;
 }
 
 .symbol-area .symbol {
@@ -93,7 +98,11 @@
     width: 215px;
 }
 
-@media (min-width: 700px) {
+.hoverx:hover {
+    cursor:pointer;
+}
+
+@media (min-width: 800px) {
     .navbar-expand-custom {
         -webkit-box-orient: horizontal;
         -webkit-box-direction: normal;
