@@ -13,11 +13,14 @@ namespace SymbolIndex.Controllers
         SIContext db = new SIContext();
 
 
-        public ActionResult Index(int? fontId)
+        public ActionResult Index(int? fontId = 3)
         {
             var fonts = db.Fonts.ToList();
             ViewBag.Fonts = fonts;
-            ViewBag.Symbols = fonts.ElementAt(fontId ?? 0).Symbols;
+
+            var font = db.Fonts.Find(fontId ?? 1);
+            ViewBag.Symbols = font.Symbols;
+            ViewBag.FontUrl = font.FontUrl;
             return View();
         }
 

@@ -4,7 +4,7 @@
     Layout = "";
 }
 
-@{ 
+@{
     IList<SymbolIndex.Models.Font> fonts = ViewBag.Fonts;
     IList<SymbolIndex.Models.Symbol> symbols = ViewBag.Symbols;
 }
@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="~/Assets/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="~/Assets/css/mycss.css">
     <link rel="stylesheet" href="~/Content/bootstrap-select.min.css">
+    
 </head>
 <body>
     <nav class="navbar navbar-expand-custom navbar-dark bg-dark fixed-top">
@@ -32,12 +33,12 @@
                 <li class="nav-item dropdown">
 
                     @*<select id="ddl_font" name="ddl_font"
-                            class="selectpicker" data-live-search="true">
-                        @foreach (var font in fonts)
-                        {
-                            <option value="@font.Id">@font.FontName</option>
-                        }
-                    </select>*@
+                                class="selectpicker" data-live-search="true">
+                            @foreach (var font in fonts)
+                            {
+                                <option value="@font.Id">@font.FontName</option>
+                            }
+                        </select>*@
 
                     @*<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,40 +70,47 @@
     <div id="font_id" class="hidden">0</div>
     <div class="container" style="margin-top: 50px">
 
+        <style>
+        @@font-face {
+            font-family: myFont;
+            src: url(@ViewBag.FontUrl);
+        }
+        </style>
+
         <select id="ddl_font" name="ddl_font"
                 class="selectpicker" data-live-search="true">
             @foreach (var font in fonts)
-            {
-                <option value="@font.Id">@font.FontName</option>
-            }
+        {
+            <option value="@font.Id">@font.FontName</option>
+    }
         </select>
 
         <div class="row row-padding-top">
             @foreach (var symbol in symbols)
 
-            {
-                <div class="symbol-container">
-                    <div class="symbol-area">
-                        <div class="symbol">
-                            <font size="8">@symbol.Content</font>
-                        </div>
+        {
+            <div class="symbol-container">
+                <div class="symbol-area">
+                    <div class="symbol">
+                        <font size="8" face="myFont">@symbol.Content</font>
+                    </div>
 
-                        <div class="key">
-                            @if (symbol.Tags != null && symbol.Tags.Count > 0)
-                            {
-                                <text>@symbol.Tags.ElementAt(0).TagString</text>
-                            }
-                            @if (symbol.Tags.Count > 1)
-                            {
-                                foreach (SymbolIndex.Models.Tag tag in symbol.Tags)
-                                {
-                                    <text>, @tag.TagString</text>
-                                }
-                            }
-                        </div>
+                    <div class="key">
+                        @if (symbol.Tags != null && symbol.Tags.Count > 0)
+                    {
+                        <text>@symbol.Tags.ElementAt(0).TagString</text>
+                }
+                        @if (symbol.Tags.Count > 1)
+                    {
+                        foreach (SymbolIndex.Models.Tag tag in symbol.Tags)
+                        {
+                            <text>, @tag.TagString</text>
+                    }
+                }
                     </div>
                 </div>
-            }
+            </div>
+    }
 
         </div>
     </div>
@@ -119,3 +127,4 @@
     </script>
 </body>
 </html>
+
