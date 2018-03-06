@@ -21,7 +21,21 @@
     <link rel="stylesheet" href="~/Assets/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="~/Assets/css/mycss.css">
     <link rel="stylesheet" href="~/Content/bootstrap-select.min.css">
-    
+
+    <style>
+
+        @@font-face {
+            font-family: '@fontCurrent.FontName';
+            src: url(@fontCurrent.FontUrl);
+        }
+        .myFont{
+                font-family: '@fontCurrent.FontName';
+            }
+
+
+
+    </style>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-custom navbar-dark bg-dark fixed-top">
@@ -82,12 +96,7 @@
     <div id="font_id" class="hidden">0</div>
     <div class="container" style="margin-top: 50px">
 
-        <style>
-        @@font-face {
-            font-family: myFont;
-            src: url(@fontCurrent.FontUrl);
-        }
-        </style>
+        
 
         @*<select id="ddl_font" name="ddl_font"
                 class="selectpicker" data-live-search="true">
@@ -103,8 +112,8 @@
         {
             <div class="symbol-container">
                 <div class="symbol-area">
-                    <div class="symbol">
-                        <font size="8" face="myFont">@symbol.Content</font>
+                    <div class="symbol myFont">
+                        <font size="8" face="@fontCurrent.FontName">@symbol.Content</font>
                     </div>
 
                     <div class="key">
