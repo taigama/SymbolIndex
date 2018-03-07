@@ -39,8 +39,8 @@ namespace SymbolIndex.Controllers
             Uri uri = urlBuilder.Uri;
             //string url = urlBuilder.ToString();
 
+            // why this is always empty???
             var families = Fonts.GetFontFamilies(uri);
-
 
             Dictionary<int, ushort> dict = new Dictionary<int, ushort>();
             
