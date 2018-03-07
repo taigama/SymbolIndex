@@ -58,9 +58,20 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="Shipwreck.Phash, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shipwreck.Phash.0.2.0\lib\net452\Shipwreck.Phash.dll</HintPath>
+    </Reference>
+    <Reference Include="Shipwreck.Phash.PresentationCore, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shipwreck.Phash.PresentationCore.0.2.0\lib\net452\Shipwreck.Phash.PresentationCore.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.3.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -121,6 +132,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase">
+      <HintPath>..\packages\WindowsBase.4.6.1055.0\lib\WindowsBase.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -152,6 +167,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -281,6 +297,7 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="fonts\WINGDNG2.TTF" />
+    <None Include="Properties\PublishProfiles\SymbolIndex - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.min.js" />
@@ -397,6 +414,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
