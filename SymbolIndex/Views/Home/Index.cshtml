@@ -112,7 +112,7 @@
         {
             <div class="symbol-container">
                 <div class="symbol-area">
-                    <div class="symbol myFont">
+                    <div id="symbol_@symbol.Id" class="symbol myFont hoverx" onclick="copyText('symbol_@symbol.Id')">
                         <font size="8" face="@fontCurrent.FontName">@symbol.Content</font>
                     </div>
 
@@ -142,9 +142,15 @@
     <script src="~/Scripts/umd/popper.min.js"></script>
     <script src="~/Assets/js/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap-select.min.js"></script>
+    <script src="~/Scripts/clipboard-polyfill.js"></script>
 
     <script type="text/javascript">
-
+        function copyText(id) {
+            var dt = new clipboard.DT();
+            dt.setData("text/plain", "Fallback markup text.");
+            dt.setData("text/html", $('#' + id).html());
+            clipboard.write(dt);
+        }
     </script>
 </body>
 </html>
