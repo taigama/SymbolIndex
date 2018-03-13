@@ -37,7 +37,7 @@ body{
 
 .symbol-area {
     width: 100px;
-    height: 100px;
+    height: 120px;
     border-color: #D1D1D1;
     border-style: solid;
     border-radius: 10px;
@@ -50,7 +50,7 @@ body{
     justify-content: center;
     align-items: center;
     width: 100px;
-    height: 60%;
+    height: 50%;
 }
 
 .center-content {
@@ -67,7 +67,7 @@ body{
     border-color: #D1D1D1;
     margin: 0 2px 0 2px;
     width: auto;
-    height: 40%;
+    height: 50%;
     text-align: center;
     font-weight: bold;
     font-size: 13px;

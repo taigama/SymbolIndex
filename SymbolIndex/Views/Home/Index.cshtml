@@ -40,7 +40,7 @@
 <body>
     <nav class="navbar navbar-expand-custom navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">SYMBOL INDEX</a>
+            <a class="navbar-brand" href="/Home/Index">SYMBOL INDEX</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -58,7 +58,7 @@
 
                         <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    @fontCurrent.FontName
+                                    <text style="color:#00ffff">Font: </text> @fontCurrent.FontName
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     @foreach (var font in fonts)
@@ -137,7 +137,7 @@
     </div>
 
     <!-- The actual snackbar -->
-<div id="snackbar">Copied to the clipboard.</div>
+<div id="snackbar">Copied the symbol. You can paste to Word.</div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -165,7 +165,7 @@
             x.className = "show";
 
             // After 3 seconds, remove the show class from DIV
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 2000);
         }
     </script>
 </body>
