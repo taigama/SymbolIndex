@@ -298,6 +298,8 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="fonts\WINGDNG2.TTF" />
+    <Content Include="fonts\Font Awesome 5 Free-Regular-400.otf" />
+    <Content Include="fonts\KCusTom.ttf" />
     <None Include="Properties\PublishProfiles\SymbolIndex - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.js" />
