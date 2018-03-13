@@ -113,7 +113,7 @@
             <div class="symbol-container">
                 <div class="symbol-area">
                     <div id="symbol_@symbol.Id" class="symbol myFont hoverx" onclick="copyText('symbol_@symbol.Id')">
-                        <font size="8" face="@fontCurrent.FontName">@symbol.Content</font>
+                        <font id="symbol_@(symbol.Id)_sub" size="8" face="@fontCurrent.FontName">@symbol.Content</font>
                     </div>
 
                     <div class="key">
@@ -136,6 +136,9 @@
         </div>
     </div>
 
+    <!-- The actual snackbar -->
+<div id="snackbar">Copied to the clipboard.</div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="~/Assets/js/jquery-3.3.1.min.js"></script>
@@ -147,9 +150,22 @@
     <script type="text/javascript">
         function copyText(id) {
             var dt = new clipboard.DT();
-            dt.setData("text/plain", "Fallback markup text.");
+            dt.setData("text/plain", $('#' + id + '_sub').html());
             dt.setData("text/html", $('#' + id).html());
             clipboard.write(dt);
+
+            showSnackbar();
+        }
+
+        function showSnackbar() {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar")
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         }
     </script>
 </body>
