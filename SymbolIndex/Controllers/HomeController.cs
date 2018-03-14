@@ -41,10 +41,11 @@ namespace SymbolIndex.Controllers
             }
             symbols = symbols.Distinct().ToList();
 
-  //          var queryList = _db.Laundries
-  //.Include(l => l.LaundryMachines)
-  //.Include(l => l.LaundryMachines.Select(lm => lm.Reservations))
-  //.ToList();
+            //          var queryList = _db.Laundries
+            //.Include(l => l.LaundryMachines)
+            //.Include(l => l.LaundryMachines.Select(lm => lm.Reservations))
+            //.ToList();
+            symbols.RemoveAll(x => x.FontId != fontId);
 
 
             ViewBag.Symbols = symbols;
