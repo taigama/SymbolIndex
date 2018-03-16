@@ -23,42 +23,36 @@ namespace SymbolIndex.Controllers
             return View();
         }
 
+
         public IDictionary<int, ushort> ListFont(int? fontId)
         {
             if (fontId == null)
                 return null;
 
+            // info of the font in my database, just a name of font and url of that font
             var fontStoredInfo = db.Fonts.Find(fontId);
+            
 
-            var urlBuilder =
-                new System.UriBuilder(Request.Url.AbsoluteUri)
-                {
-                    Path = fontStoredInfo.FontUrl,
-                    Query = null,
-                };
-            Uri uri = urlBuilder.Uri;
-            //string url = urlBuilder.ToString();
-
-            // why this is always empty???
-            var families = Fonts.GetFontFamilies(uri);
+            string customStr = Server.MapPath("~/fonts/") +  fontStoredInfo.FontUrl.Replace("fonts/", "");
+            //uri = new Uri();
+            // if the uri is invalid, or the font not found, the web will become not responding
+            var families = Fonts.GetFontFamilies(customStr);
+            ViewBag.fontCount = families.Count;
 
             Dictionary<int, ushort> dict = new Dictionary<int, ushort>();
             
             foreach (FontFamily family in families)
             {
                 var typefaces = family.GetTypefaces();
-                foreach (Typeface typeface in typefaces)
+
+                GlyphTypeface glyph;
+                typefaces.ElementAt(0).TryGetGlyphTypeface(out glyph);
+                IDictionary<int, ushort> characterMap = glyph.CharacterToGlyphMap;
+
+                foreach (KeyValuePair<int, ushort> kvp in characterMap)
                 {
-                    GlyphTypeface glyph;
-                    typeface.TryGetGlyphTypeface(out glyph);
-                    IDictionary<int, ushort> characterMap = glyph.CharacterToGlyphMap;
-
-                    foreach (KeyValuePair<int, ushort> kvp in characterMap)
-                    {
-                        Console.WriteLine(String.Format("{0}:{1}", kvp.Key, kvp.Value));
-                        dict.Add(kvp.Key, kvp.Value);
-                    }
-
+                    Console.WriteLine(String.Format("{0}:{1}", kvp.Key, kvp.Value));
+                    dict.Add(kvp.Key, kvp.Value);
                 }
             }
 
