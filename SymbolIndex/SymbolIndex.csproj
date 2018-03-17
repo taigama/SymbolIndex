@@ -189,6 +189,8 @@
     <Content Include="Assets\css\bootstrap.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\mycss.css" />
+    <Content Include="Assets\css\sb-admin-2.min.css" />
+    <Content Include="Assets\css\toast.css" />
     <Content Include="Assets\font-awesome\css\fa-brands.css" />
     <Content Include="Assets\font-awesome\css\fa-brands.min.css" />
     <Content Include="Assets\font-awesome\css\fa-regular.css" />
@@ -202,6 +204,7 @@
     <Content Include="Assets\font-awesome\webfonts\fa-brands-400.svg" />
     <Content Include="Assets\font-awesome\webfonts\fa-regular-400.svg" />
     <Content Include="Assets\font-awesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Assets\image\avatar.png" />
     <Content Include="Assets\image\download.ico" />
     <Content Include="Assets\js\bootstrap-select.min.js" />
     <Content Include="Assets\js\bootstrap.bundle.js" />
@@ -209,10 +212,12 @@
     <Content Include="Assets\js\bootstrap.js" />
     <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\jquery-3.3.1.min.js" />
+    <Content Include="Assets\js\metisMenu.min.js" />
     <Content Include="Assets\js\popper-utils.js" />
     <Content Include="Assets\js\popper-utils.min.js" />
     <Content Include="Assets\js\popper.js" />
     <Content Include="Assets\js\popper.min.js" />
+    <Content Include="Assets\js\sb-admin-2.js" />
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -417,6 +422,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shared\Admin_Layout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
