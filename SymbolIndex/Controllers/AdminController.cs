@@ -18,7 +18,7 @@ namespace SymbolIndex.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            var dict = ListFont(3);
+            //var dict = ListFont(3);
 
 
             return View();
@@ -28,6 +28,29 @@ namespace SymbolIndex.Controllers
         {
             return View(db.Fonts.ToList());
         }
+
+        [HttpGet]
+        public ActionResult ViewFont(int? Id)
+        {
+            var font = db.Fonts.Find(Id ?? 3);
+            ViewBag.Symbols = font.Symbols;
+            ViewBag.FontCurrent = font;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ViewFont(int? Id, bool isOverwite = false)
+        {
+            ListFont(Id, isOverwite);
+
+            var font = db.Fonts.Find(Id ?? 3);
+            ViewBag.Symbols = font.Symbols;
+            ViewBag.FontCurrent = font;
+
+            return View();
+        }
+        
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -95,10 +118,10 @@ namespace SymbolIndex.Controllers
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public IDictionary<int, ushort> ListFont(int? fontId)
+        public void ListFont(int? fontId, bool? isOverwite = false)
         {
             if (fontId == null)
-                return null;
+                return; 
 
             // info of the font in my database, just a name of font and url of that font
             var fontStoredInfo = db.Fonts.Find(fontId);
@@ -110,8 +133,12 @@ namespace SymbolIndex.Controllers
             var families = Fonts.GetFontFamilies(customStr);
             ViewBag.fontCount = families.Count;
 
-            Dictionary<int, ushort> dict = new Dictionary<int, ushort>();
-            
+            //List<KeyValuePair<int, ushort>> lst = new List<KeyValuePair<int, ushort>>();
+            //Dictionary<int, ushort> dict = new Dictionary<int, ushort>();
+            //var symbols = fontStoredInfo.Symbols.ToList();
+
+            List<Symbol> newSymbols = new List<Symbol>(); 
+
             foreach (FontFamily family in families)
             {
                 var typefaces = family.GetTypefaces();
@@ -122,12 +149,19 @@ namespace SymbolIndex.Controllers
 
                 foreach (KeyValuePair<int, ushort> kvp in characterMap)
                 {
-                    Console.WriteLine(String.Format("{0}:{1}", kvp.Key, kvp.Value));
-                    dict.Add(kvp.Key, kvp.Value);
+                    //lst.Add(new KeyValuePair<int, ushort>(kvp.Key, kvp.Value));
+                    newSymbols.Add(new Symbol
+                    {
+                        FontId = fontId.Value,
+                        Content = "" + Convert.ToChar(kvp.Value)
+                    });
                 }
-            }
 
-            return dict;
+                fontStoredInfo.Symbols = newSymbols;
+                db.Entry(fontStoredInfo).State = System.Data.Entity.EntityState.Modified;
+            }
         }
+
+
     }
 }

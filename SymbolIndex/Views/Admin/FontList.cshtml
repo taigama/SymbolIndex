@@ -15,6 +15,24 @@
     <div class="col-lg-12">
 
         <div class="row">
+            <div class="form-group col-lg-12">
+                <div class="row col-lg-12">
+                    <label>Font</label>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <label for="uploadImage" class="form-control mylabel">Chọn font</label>
+                        <input type="file" name="uploadImage" id="uploadImage" class="inputfile" accept=".ttf, .otf" />
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="button" onclick="ClearInputImage()" class="btn btn-warning col-lg-12">Xóa font</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
             <div class="col-lg-12">
                 <!-- Breadcrumb-->
                 <nav aria-label="breadcrumb" role="navigation" style="margin-top: 20px">
@@ -94,5 +112,76 @@
 
     </div>
 </div>
+
+<script src="~/Assets/js/jquery-3.3.1.min.js"></script>
+
+<script>
+
+
+
+    $('#uploadImage').change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                selectedImage = e.target.result;
+                $('#reviewImage').attr('src', selectedImage);
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    function UploadImage(callback) {
+        // Checking whether FormData is available in browser  
+
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $("#uploadImage").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object  
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object  
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding one more key to FormData object  
+            fileData.append('username', 'Manas');
+
+            $.ajax({
+                url: '/Staff/UploadFiles',
+                type: "POST",
+                contentType: false, // Not to set any content header  
+                processData: false, // Not to process data  
+                data: fileData,
+                success: function (result) {
+                    if (parseInt(result.Type) == 0) {
+                        $('#avatarImage').val(result.StringValue);
+                        callback();
+                    }
+                    else {
+                        showSnackbar("snackbar", 'Lỗi khi upload hình');
+                    }
+                },
+                error: function (err) {
+                    alert("Here" + err.statusText);
+                }
+            });
+        } else {
+            alert("FormData is not supported.");
+        }
+    }
+
+    function ClearInputImage() {
+        ResetFormElement($('#uploadImage'));
+        $('#reviewImage').attr('src', '');
+    }
+
+    function ResetFormElement(e) {
+        e.wrap('<form>').closest('form').get(0).reset();
+        e.unwrap();
+    }
+</script>
 
 

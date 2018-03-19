@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "ViewFont";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+
+    SymbolIndex.Models.Font fontCurrent = ViewBag.FontCurrent;
+    IList<SymbolIndex.Models.Symbol> symbols = ViewBag.Symbols;
+}
+
+<h2>ViewFont</h2>
+
+@using (Html.BeginForm())
+{
+    <input name="Id" type="hidden" value="@fontCurrent.Id"/>
+    <input name="isOverwite" type="checkbox" value="Is overwrite?" />
+    <input name="genSymbols" type="submit" value="Generate symbols" />
+}
+
+<div class="row row-padding-top">
+    @foreach (var symbol in symbols)
+
+    {
+        <div class="symbol-container">
+            <div class="symbol-area">
+                <div id="symbol_@symbol.Id" class="symbol myFont hoverx" onclick="copyText('symbol_@symbol.Id')">
+                    <font id="symbol_@(symbol.Id)_sub" size="8" face="@fontCurrent.FontName">@symbol.Content</font>
+                </div>
+
+                <div class="key">
+                    @if (symbol.Tags != null && symbol.Tags.Count > 0)
+                    {
+                        <text>@symbol.Tags.ElementAt(0).TagString</text>
+
+                        if (symbol.Tags.Count > 1)
+                        {
+                            for (int i = 1; i < symbol.Tags.Count; i++)
+                            {
+                                <text>, @(symbol.Tags[i].TagString)</text>
+                            }
+                        }
+                    }
+                    
+                </div>
+            </div>
+        </div>
+        }
+
+</div>
+
+@section AddToHead{
+    <link href="~/Assets/css/mycss.css" rel="stylesheet" type="text/css" />
+    <style>
+
+        @@font-face {
+            font-family: '@fontCurrent.FontName';
+            src: url(@fontCurrent.FontUrl);
+        }
+        .myFont{
+                font-family: '@fontCurrent.FontName';
+            }
+
+        .symbol-container {
+            display: inline-block;
+            width: 12.5%;
+            padding: 10px;
+            min-width: 90px;
+        }
+        .symbol-area {
+            width: 80px;
+            height: 120px;
+            border-color: #D1D1D1;
+            border-style: solid;
+            border-radius: 10px;
+            border-width: 0.5px;
+            background-color: #FFF;
+        }
+    </style>
+}
+
+<script>
+
+</script>
