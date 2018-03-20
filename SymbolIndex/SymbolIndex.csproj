@@ -186,9 +186,12 @@
     </Compile>
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Font.cs" />
+    <Compile Include="Models\FontSimple.cs" />
     <Compile Include="Models\Symbol.cs" />
+    <Compile Include="Models\SymbolSimple.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\TagSymbol.cs" />
+    <Compile Include="Models\TagSimple.cs" />
+    <Compile Include="Models\TagSymbolSimple.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\SIContext.cs" />
   </ItemGroup>

@@ -33,10 +33,10 @@ namespace SymbolIndex.Controllers
         {
             object data = new
             {
-                Fonts = db.Fonts.ToList(),
-                Symbols = db.Symbols.ToList(),
-                Tags = db.Tags.ToList(),
-                TagSymbols = db.Database.SqlQuery<TagSymbol>("select Tag_Id,Symbol_Id from dbo.TagSymbol")
+                Fonts = db.Database.SqlQuery<FontSimple>("select * from dbo.Font"),
+                Symbols = db.Database.SqlQuery<SymbolSimple>("select * from dbo.Symbol"),
+                Tags = db.Database.SqlQuery<TagSimple>("select * from dbo.Tag"),
+                TagSymbols = db.Database.SqlQuery<TagSymbolSimple>("select Tag_Id,Symbol_Id from dbo.TagSymbol")
             };
             
             return ParseJson(data, 2);
