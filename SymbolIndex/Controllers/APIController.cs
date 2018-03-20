@@ -19,13 +19,18 @@ namespace SymbolIndex.Controllers
         [HttpGet]
         public ActionResult GetFontInfo(int id, bool more = false)
         {
+            object theFont = null;
 
-            Font theFont = db.Fonts.Find(id);
             if(!more)
             {
-                theFont.Symbols = null;
+                string strQuery = "select * from dbo.Font where Id=" + id.ToString();
+                theFont = db.Database.SqlQuery<FontSimple>(strQuery);
             }
-            return ParseJson(theFont, more ? 3:1);
+            else
+            {
+                theFont = db.Fonts.Find(id);
+            }
+            return ParseJson(theFont??"Font info not found", 3);
         }
 
         [HttpGet]
