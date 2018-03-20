@@ -24,6 +24,15 @@ namespace SymbolIndex.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult EditFont(int Id = 4)
+        {
+            var font = db.Fonts.Find(Id);
+            ViewBag.Symbols = font.Symbols;
+            ViewBag.FontCurrent = font;
+            return View();
+        }
+
         public ActionResult FontList()
         {
             return View(db.Fonts.ToList());

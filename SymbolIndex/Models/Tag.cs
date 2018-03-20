@@ -10,5 +10,10 @@ namespace SymbolIndex.Models
         public string TagString { get; set; }
 
         public virtual IList<Symbol> Symbols { get; set; }
+
+        public override string ToString()
+        {
+            return TagString;
+        }
     }
 }
