@@ -198,12 +198,18 @@
   <ItemGroup>
     <Content Include="1490863054_document.ico" />
     <Content Include="Assets\css\bootstrap-grid.css" />
+    <Content Include="Assets\css\bootstrap-grid.css.map" />
     <Content Include="Assets\css\bootstrap-grid.min.css" />
+    <Content Include="Assets\css\bootstrap-grid.min.css.map" />
     <Content Include="Assets\css\bootstrap-reboot.css" />
+    <Content Include="Assets\css\bootstrap-reboot.css.map" />
     <Content Include="Assets\css\bootstrap-reboot.min.css" />
+    <Content Include="Assets\css\bootstrap-reboot.min.css.map" />
     <Content Include="Assets\css\bootstrap-select.min.css" />
     <Content Include="Assets\css\bootstrap.css" />
+    <Content Include="Assets\css\bootstrap.css.map" />
     <Content Include="Assets\css\bootstrap.min.css" />
+    <Content Include="Assets\css\bootstrap.min.css.map" />
     <Content Include="Assets\css\mycss.css" />
     <Content Include="Assets\css\sb-admin-2.min.css" />
     <Content Include="Assets\css\toast.css" />
@@ -217,44 +223,6 @@
     <Content Include="Assets\font-awesome\css\fontawesome-all.min.css" />
     <Content Include="Assets\font-awesome\css\fontawesome.css" />
     <Content Include="Assets\font-awesome\css\fontawesome.min.css" />
-    <Content Include="Assets\font-awesome\webfonts\fa-brands-400.svg" />
-    <Content Include="Assets\font-awesome\webfonts\fa-regular-400.svg" />
-    <Content Include="Assets\font-awesome\webfonts\fa-solid-900.svg" />
-    <Content Include="Assets\image\avatar.png" />
-    <Content Include="Assets\image\download.ico" />
-    <Content Include="Assets\js\bootstrap-select.min.js" />
-    <Content Include="Assets\js\bootstrap.bundle.js" />
-    <Content Include="Assets\js\bootstrap.bundle.min.js" />
-    <Content Include="Assets\js\bootstrap.js" />
-    <Content Include="Assets\js\bootstrap.min.js" />
-    <Content Include="Assets\js\jquery-3.3.1.min.js" />
-    <Content Include="Assets\js\metisMenu.min.js" />
-    <Content Include="Assets\js\popper-utils.js" />
-    <Content Include="Assets\js\popper-utils.min.js" />
-    <Content Include="Assets\js\popper.js" />
-    <Content Include="Assets\js\popper.min.js" />
-    <Content Include="Assets\js\sb-admin-2.js" />
-    <Content Include="Content\bootstrap-select.css" />
-    <Content Include="Content\bootstrap-select.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap-select.js" />
-    <Content Include="Scripts\bootstrap-select.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\css\bootstrap-grid.css.map" />
-    <Content Include="Assets\css\bootstrap-grid.min.css.map" />
-    <Content Include="Assets\css\bootstrap-reboot.css.map" />
-    <Content Include="Assets\css\bootstrap-reboot.min.css.map" />
-    <Content Include="Assets\css\bootstrap.css.map" />
-    <Content Include="Assets\css\bootstrap.min.css.map" />
     <Content Include="Assets\font-awesome\less\fa-brands.less" />
     <Content Include="Assets\font-awesome\less\fa-regular.less" />
     <Content Include="Assets\font-awesome\less\fa-solid.less" />
@@ -288,25 +256,63 @@
     <Content Include="Assets\font-awesome\scss\_stacked.scss" />
     <Content Include="Assets\font-awesome\scss\_variables.scss" />
     <Content Include="Assets\font-awesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Assets\font-awesome\webfonts\fa-brands-400.svg" />
     <Content Include="Assets\font-awesome\webfonts\fa-brands-400.ttf" />
     <Content Include="Assets\font-awesome\webfonts\fa-brands-400.woff" />
     <Content Include="Assets\font-awesome\webfonts\fa-brands-400.woff2" />
     <Content Include="Assets\font-awesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Assets\font-awesome\webfonts\fa-regular-400.svg" />
     <Content Include="Assets\font-awesome\webfonts\fa-regular-400.ttf" />
     <Content Include="Assets\font-awesome\webfonts\fa-regular-400.woff" />
     <Content Include="Assets\font-awesome\webfonts\fa-regular-400.woff2" />
     <Content Include="Assets\font-awesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Assets\font-awesome\webfonts\fa-solid-900.svg" />
     <Content Include="Assets\font-awesome\webfonts\fa-solid-900.ttf" />
     <Content Include="Assets\font-awesome\webfonts\fa-solid-900.woff" />
     <Content Include="Assets\font-awesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="Assets\image\avatar.png" />
+    <Content Include="Assets\image\download.ico" />
+    <Content Include="Assets\js\bootstrap-select.min.js" />
+    <Content Include="Assets\js\bootstrap.bundle.js" />
     <Content Include="Assets\js\bootstrap.bundle.js.map" />
+    <Content Include="Assets\js\bootstrap.bundle.min.js" />
     <Content Include="Assets\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Assets\js\bootstrap.js" />
     <Content Include="Assets\js\bootstrap.js.map" />
+    <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\bootstrap.min.js.map" />
+    <Content Include="Assets\js\jquery-3.3.1.min.js" />
+    <Content Include="Assets\js\metisMenu.min.js" />
+    <Content Include="Assets\js\popper-utils.js" />
     <Content Include="Assets\js\popper-utils.js.map" />
+    <Content Include="Assets\js\popper-utils.min.js" />
     <Content Include="Assets\js\popper-utils.min.js.map" />
+    <Content Include="Assets\js\popper.js" />
     <Content Include="Assets\js\popper.js.map" />
+    <Content Include="Assets\js\popper.min.js" />
     <Content Include="Assets\js\popper.min.js.map" />
+    <Content Include="Assets\js\sb-admin-2.js" />
+    <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\Font Awesome 5 Free-Regular-400.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\KCusTom.ttf" />
+    <Content Include="fonts\WINGDNG2.TTF" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-select.js" />
+    <Content Include="Scripts\bootstrap-select.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\bootstrap-select.js.map" />
     <Content Include="Content\bootstrap-select.css.map" />
     <Content Include="Scripts\clipboard-polyfill.js" />
@@ -318,9 +324,6 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="fonts\WINGDNG2.TTF" />
-    <Content Include="fonts\Font Awesome 5 Free-Regular-400.otf" />
-    <Content Include="fonts\KCusTom.ttf" />
     <None Include="Properties\PublishProfiles\SymbolIndex - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.js" />
@@ -444,15 +447,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
