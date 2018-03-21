@@ -25,7 +25,7 @@ namespace SymbolIndex.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditFont(int Id = 4)
+        public ActionResult ViewFont(int Id = 4)
         {
             var font = db.Fonts.Find(Id);
             ViewBag.Symbols = font.Symbols;

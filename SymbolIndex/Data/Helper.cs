@@ -33,6 +33,9 @@ using System.Web.Mvc;
 
 namespace SymbolIndex.Data
 {
+
+
+    #region Json Net Result
     /// <summary> Our custom json result
     /// <para> you can set serialize depth
     /// </para>
@@ -132,4 +135,52 @@ namespace SymbolIndex.Data
             return property;
         }
     }
+    #endregion
+
+    #region Static extension
+    public static class SIExtension
+    {
+        /// <summary>
+        /// Auto call ToString() per object, and create separator between them
+        /// </summary>
+        public static string ToString(IList<object> list, string separator = ", ")
+        {
+            string result = "";
+            if (list != null)
+            {
+                if(list.Count > 0)
+                {
+                    result = list[0].ToString();
+                }
+
+                for(int i = 1; i < list.Count; i++)
+                {
+                    result += separator + list[i].ToString(); 
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Auto get tags, and create separator between them
+        /// </summary>
+        public static string ToString(IList<SymbolIndex.Models.Tag> list, string separator = ", ")
+        {
+            string result = "";
+            if (list != null)
+            {
+                if (list.Count > 0)
+                {
+                    result = list[0].TagString;
+                }
+
+                for (int i = 1; i < list.Count; i++)
+                {
+                    result += separator + list[i].TagString;
+                }
+            }
+            return result;
+        }
+    }
+    #endregion
 }
