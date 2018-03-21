@@ -28,9 +28,68 @@ namespace SymbolIndex.Controllers
         public ActionResult ViewFont(int Id = 4)
         {
             var font = db.Fonts.Find(Id);
+            if(font == null)
+            {
+                return HttpNotFound("font id was not found");
+            }
+
+
             ViewBag.Symbols = font.Symbols;
             ViewBag.FontCurrent = font;
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddSymbols(int fontId, List<string> symbolsInXUTF)
+        {
+            var font = db.Fonts.Find(fontId);
+            if (font == null)
+            {
+                return HttpNotFound("font id was not found");
+            }
+
+            foreach (var child in symbolsInXUTF)
+            {
+                if (child == null)
+                    continue;
+
+                db.Symbols.Add(
+                    new Symbol
+                    {
+                        FontId = fontId,
+                        Content = child
+                    });
+            }
+            db.SaveChanges();
+
+            ViewData["fontCurrent"] = font;
+            ViewData["symbols"] = font.Symbols.ToList();
+            return PartialView("_FontSymbolsTBody");
+        }
+
+        [HttpPost]
+        public ActionResult ClearFontSymbols(int fontId)
+        {
+            var font = db.Fonts.Find(fontId);
+            if (font == null)
+            {
+                return HttpNotFound("font id was not found");
+            }
+
+            try
+            {
+                var willBeDeletedSymbols = db.Symbols.Where(x => x.FontId == fontId).ToList();
+                if (willBeDeletedSymbols != null && willBeDeletedSymbols.Count > 0)
+                {
+                    db.Symbols.RemoveRange(willBeDeletedSymbols);
+                    db.SaveChanges();
+                }
+                return Json( new { success = true, message = "Clear complete!"}, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception e)
+            {
+                return new HttpStatusCodeResult(500 ,e.InnerException.Message);
+            }
         }
 
         public ActionResult FontList()

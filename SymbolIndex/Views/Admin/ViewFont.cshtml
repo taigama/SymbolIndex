@@ -15,7 +15,7 @@
     <input name="genSymbols" type="submit" value="Generate symbols" />
 }*@
 
-<button class="btn btn-primary" onclick="getAllSymbol()">auto generate list of symbol (and overwrite)</button>
+<button class="btn btn-primary" onclick="resetSymbols()">auto generate list of symbol (and overwrite)</button>
 
 <div class="row">
     <div class="col-lg-12">
@@ -72,28 +72,13 @@
                     @* ---- table body ----*@
                     <div style="height:300px;overflow: hidden; overflow-y:scroll;" id="div_table">
                         <table class="table table-striped table-bordered table-hover" id="table_content">
-                            <tbody id="list">
-                                @foreach (var symbol in symbols)
-                            {
-                                <tr>
-                                    <td style="width:5%">
-                                        @Html.DisplayFor(modelItem => symbol.Id)
-                                    </td>
-                                    <td style="width:5%">
-                                        <font face="@fontCurrent.FontName">
-                                            @Html.DisplayFor(modelItem => symbol.Content)
-                                        </font>
-                                    </td>
-                                    <td style="width:10%">
-                                    </td>
-                                    <td style="width:65%;word-wrap:break-word">
-                                        <input id="tags_@symbol.Id" style="width:100%;padding-left:2px;padding-right:2px"
-                                               value="@SymbolIndex.Data.SIExtension.ToString(symbol.Tags)"/>
-                                    </td>
-                                    <td style="width:15%"></td>
-                                </tr>
-                        }
-                            </tbody>
+                            @Html.Partial("_FontSymbolsTBody",
+                           new ViewDataDictionary()
+                           {
+                               ["fontCurrent"] = fontCurrent,
+                               ["symbols"] = symbols
+                           }
+                           )
                         </table>
                     </div>
                     @* bottom line*@
@@ -144,29 +129,54 @@
 <script>
     var font;
 
-    function getAllSymbol() {
+    function resetSymbols() {
         var path = '@fontCurrent.FontUrl';
 
         if (!path) {
             alert('this font has no path!');
+            return;
         }
 
+        ClearFontSymbols();
         opentype.load(path, function (err, font) {
             if (err) {
                 showErrorMessage(err.toString());
                 return;
             }
-            onFontLoaded(font);
+            parseCharacters(font);
         });
     }
 
-    function onFontLoaded(font) {
+    function parseCharacters(font) {
         window.font = font;
 
-        alert('unicode of #8' + font.glyphs.glyphs[8].unicode);
+        //alert('unicode of #8: ' + formatUnicode(font.glyphs.glyphs[8].unicode));
+        var symbolsInXUTF = [];
 
+        var glyphs = font.glyphs.glyphs;
 
-        //var w = cellWidth - cellMarginLeftRight * 2,
+        for (var a = 0; a < font.glyphs.length; a++) {
+            symbolsInXUTF.push(formatUnicode(glyphs[a].unicode));
+        }
+
+        $.ajax({
+            url: "/Admin/AddSymbols",
+            type: "POST",
+            data: {
+                fontId: '@fontCurrent.Id',
+                symbolsInXUTF: symbolsInXUTF
+            },
+            dataType: 'html',
+            traditional: true,
+            success: function (data) {
+                $('#table_content').html(data);
+            },
+            error: function (err) {
+                document.write("Error: " + err.responseText);
+            }
+        });
+
+        @*//var w = cellWidth - cellMarginLeftRight * 2,
         //    h = cellHeight - cellMarginTop - cellMarginBottom,
         //    head = font.tables.head,
         //    maxHeight = head.yMax - head.yMin;
@@ -194,7 +204,10 @@
         //initGlyphDisplay();
         //displayGlyphPage(0);
         //displayGlyph(-1);
-        //displayGlyphData(-1);
+        //displayGlyphData(-1);*@
+
+
+
     }
 
     function displayGlyphPage(pageNum) {
@@ -231,5 +244,32 @@
         glyph.draw(ctx, x0, fontBaseline, fontSize);
     }
 
+    function ClearFontSymbols() {
+        $.ajax({
+            url: "/Admin/ClearFontSymbols?fontId=@fontCurrent.Id",
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    console.log(data);
+                }
+                else {
+                    console.log('failed: ' + data);
+                }
+            },
+            error: function (err) {
+                document.write("Error: " + err.responseText);
+            }
+        });
+    }
+
+    function formatUnicode(unicode) {
+        unicode = unicode.toString(16);
+        if (unicode.length > 4) {
+            return ("000000" + unicode.toUpperCase()).substr(-6)
+        } else {
+            return ("0000" + unicode.toUpperCase()).substr(-4)
+        }
+    }
     
 </script>

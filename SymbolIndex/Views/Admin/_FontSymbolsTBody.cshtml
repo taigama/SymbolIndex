@@ -1,0 +1,28 @@
+﻿@{ 
+    SymbolIndex.Models.Font fontCurrent = (SymbolIndex.Models.Font)ViewData["fontCurrent"];
+    IList<SymbolIndex.Models.Symbol> symbols = (IList<SymbolIndex.Models.Symbol>)ViewData["symbols"];
+    string unicodeHexFormater = "&#x";
+}
+<tbody id="list">
+    @{ int i = 0; }
+    @foreach (var symbol in symbols)
+    {
+        <tr>
+            <td id="sid_@i" style="width:5%">
+                @Html.DisplayFor(modelItem => symbol.Id)
+            </td>
+            <td style="width:5%">
+                <font id="content_@i" face="@fontCurrent.FontName">
+                    @(unicodeHexFormater + symbol.Content)
+                </font>
+            </td>
+            <td id="sname_@i" style="width:10%"></td>
+            <td style="width:65%;word-wrap:break-word">
+                <input id="tags_@i" style="width:100%;padding-left:2px;padding-right:2px"
+                       value="@SymbolIndex.Data.SIExtension.ToString(symbol.Tags)" />
+            </td>
+            <td style="width:15%"></td>
+        </tr>
+        i++;
+    }
+</tbody>

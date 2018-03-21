@@ -449,6 +449,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\FontList.cshtml" />
     <Content Include="Views\Admin\ViewFont.cshtml" />
+    <Content Include="Views\Admin\_FontSymbolsTBody.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
