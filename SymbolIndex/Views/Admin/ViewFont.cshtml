@@ -127,7 +127,7 @@
 }
 <script src="~/Scripts/dist/opentype.min.js"></script>
 <script>
-    var font;
+    var font, check;
 
     function resetSymbols() {
         var path = '@fontCurrent.FontUrl';
@@ -152,12 +152,22 @@
 
         //alert('unicode of #8: ' + formatUnicode(font.glyphs.glyphs[8].unicode));
         var symbolsInXUTF = [];
+        
 
-        var glyphs = font.glyphs.glyphs;
+        @*var i = 0;
+        var jGlyphs = $.makeArray(font.glyphs.glyphs);
+        jGlyphs.each(function (child) {
+            symbolsInXUTF.push(formatUnicode(child.unicode));
+        });*@
 
-        for (var a = 0; a < font.glyphs.length; a++) {
-            symbolsInXUTF.push(formatUnicode(glyphs[a].unicode));
-        }
+        $.each(font.glyphs.glyphs, function (i, child) {
+            if (child.unicode)
+                symbolsInXUTF.push(String.fromCharCode(parseInt(formatUnicode(child.unicode), 16)));
+        });
+        //
+        @*for (var i = 0; i < font.glyphs.length; i++) {
+            symbolsInXUTF.push(formatUnicode(font.glyphs.glyphs[i].unicode));
+        }*@
 
         $.ajax({
             url: "/Admin/AddSymbols",
@@ -264,7 +274,7 @@
     }
 
     function formatUnicode(unicode) {
-        unicode = unicode.toString(16);
+        unicode = Number(unicode).toString(16);
         if (unicode.length > 4) {
             return ("000000" + unicode.toUpperCase()).substr(-6)
         } else {

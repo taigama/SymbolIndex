@@ -1,7 +1,7 @@
 ﻿@{ 
     SymbolIndex.Models.Font fontCurrent = (SymbolIndex.Models.Font)ViewData["fontCurrent"];
     IList<SymbolIndex.Models.Symbol> symbols = (IList<SymbolIndex.Models.Symbol>)ViewData["symbols"];
-    string unicodeHexFormater = "&#x";
+    //string unicodeHexFormater = "&#x";
 }
 <tbody id="list">
     @{ int i = 0; }
@@ -13,7 +13,7 @@
             </td>
             <td style="width:5%">
                 <font id="content_@i" face="@fontCurrent.FontName">
-                    @(unicodeHexFormater + symbol.Content)
+                    @(symbol.Content)
                 </font>
             </td>
             <td id="sname_@i" style="width:10%"></td>
