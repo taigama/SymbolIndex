@@ -189,6 +189,7 @@
     <Compile Include="Models\FontSimple.cs" />
     <Compile Include="Models\Symbol.cs" />
     <Compile Include="Models\SymbolSimple.cs" />
+    <Compile Include="Models\SymbolView.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TagSimple.cs" />
     <Compile Include="Models\TagSymbolSimple.cs" />

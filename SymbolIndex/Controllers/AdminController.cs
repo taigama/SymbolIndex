@@ -63,7 +63,7 @@ namespace SymbolIndex.Controllers
             db.SaveChanges();
 
             ViewData["fontCurrent"] = font;
-            ViewData["symbols"] = font.Symbols.ToList();
+            ViewData["symbols"] = db.Symbols.Where(x => x.FontId == font.Id).ToList();
             return PartialView("_FontSymbolsTBody");
         }
 
@@ -90,6 +90,69 @@ namespace SymbolIndex.Controllers
             {
                 return new HttpStatusCodeResult(500 ,e.InnerException.Message);
             }
+        }
+
+        [HttpPost]
+        public ActionResult CommitTags(int fontId, List<SymbolView> viewSymbols)
+        {
+            var font = db.Fonts.Find(fontId);
+            if (font == null)
+            {
+                return HttpNotFound("font id was not found");
+            }
+
+            List<string> strsTemp;
+            var tagsInDb = db.Tags.ToList();
+            var symbols = font.Symbols.ToList();
+            Symbol symTemp;
+            Tag tagTemp;
+
+            foreach (var child in viewSymbols)
+            {
+                if (string.IsNullOrEmpty(child.Tags))
+                    continue;
+
+                symTemp = symbols.Find(x => x.Id == child.Sid);
+                if (symTemp == null)
+                    continue;
+
+                if(symTemp.Tags == null)
+                {
+                    symTemp.Tags = new List<Tag>();
+                }
+                else if(symTemp.Tags.Count > 0)
+                {
+                    symTemp.Tags.Clear();
+                }
+
+
+                strsTemp = child.Tags.Split(',').Select(s => s.Trim()).Distinct().ToList();
+                foreach(var tagInClient in strsTemp)
+                {
+                    tagTemp = tagsInDb.Find(x => x.TagString == tagInClient);
+                    if(tagTemp == null)
+                    {
+                        tagTemp = new Tag()
+                        {
+                            TagString = tagInClient
+                        };
+
+                        db.Tags.Add(tagTemp);
+                        db.SaveChanges();
+                    }
+                    
+                    symTemp.Tags.Add(tagTemp);
+                }
+
+
+                db.Entry(symTemp).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+
+
+            ViewData["fontCurrent"] = font;
+            ViewData["symbols"] = db.Symbols.Where(x => x.FontId == font.Id).ToList();
+            return PartialView("_FontSymbolsTBody");
         }
 
         public ActionResult FontList()
