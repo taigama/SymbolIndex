@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SymbolIndex.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,8 @@ namespace SymbolIndex
     {
         protected void Application_Start()
         {
+            ModelBinders.Binders.Add(typeof(ViewSymbolsBinder), new ViewSymbolsBinder());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

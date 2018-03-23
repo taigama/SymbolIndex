@@ -10,7 +10,7 @@ namespace SymbolIndex.Data
     public class SIContext : DbContext
     {
         public SIContext()
-            : base("name=SIContext")
+            : base("name=SIContextAzure")
         {
         }
 

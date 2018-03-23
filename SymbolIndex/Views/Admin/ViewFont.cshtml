@@ -15,9 +15,6 @@
     <input name="genSymbols" type="submit" value="Generate symbols" />
 }*@
 
-<button class="btn btn-primary" onclick="resetSymbols()">Auto generate list of symbols</button>
-<button class="btn btn-warning" onclick="clearFontSymbols()">Clear all symbols</button>
-<button class="btn btn-warning" onclick="alert('this function has not completed')">Commit tags</button>
 
 <div class="row">
     <div class="col-lg-12">
@@ -39,6 +36,14 @@
                 <!-- End Breadcrumb-->
             </div>
         </div>
+
+        
+
+        <button class="btn btn-primary" onclick="resetSymbols()">Auto generate list of symbols</button>
+        <button class="btn btn-warning" onclick="clearFontSymbols()">Clear all symbols</button>
+        <button class="btn btn-info" onclick="commitTags()">Commit tags</button>
+
+
         <div class="panel panel-default">
             <div class="panel-heading" style="background-color:rgb(1, 85, 180); color:aliceblue">
                 <i class="fa fa-file-text fa-fw"></i> Danh sách font
@@ -221,39 +226,38 @@
 
     }
 
-    function displayGlyphPage(pageNum) {
-        pageSelected = pageNum;
-        document.getElementById('p' + pageNum).className = 'page-selected';
-        var firstGlyph = pageNum * cellCount;
-        for (var i = 0; i < cellCount; i++) {
-            renderGlyphItem(document.getElementById('g' + i), firstGlyph + i);
+
+    var checkCommit;
+function commitTags() {
+
+    var symbolsDatas = [];
+    $.each($('#list').children(), function (i, child) {
+        symbolsDatas.push( {
+            Sid: $('#sid_' + i).html(),
+            OName: $('#sname_' + i).html(),
+            Content: $('#content_' + i).html(),
+            Tags: $('#tags_' + i).val()
+        });
+    });
+
+    checkCommit = symbolsDatas;
+
+    $.ajax({
+        url: "/Admin/CommitTags?fontId=@fontCurrent.Id",
+        type: "POST",
+        data: JSON.stringify ({ viewSymbols: symbolsDatas }),
+        dataType: 'html',
+        traditional: true,
+        success: function (data) {
+            $('#table_content').html(data);
+
+            alert("cập nhật tags thành công");
+        },
+        error: function (err) {
+            document.write("Error: " + err.responseText);
         }
-    }
-
-    function renderGlyphItem(canvas, glyphIndex) {
-        var cellMarkSize = 4;
-        var ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, cellWidth, cellHeight);
-        if (glyphIndex >= font.numGlyphs) return;
-
-        ctx.fillStyle = '#606060';
-        ctx.font = '9px sans-serif';
-        ctx.fillText(glyphIndex, 1, cellHeight - 1);
-        var glyph = font.glyphs.get(glyphIndex),
-            glyphWidth = glyph.advanceWidth * fontScale,
-            xmin = (cellWidth - glyphWidth) / 2,
-            xmax = (cellWidth + glyphWidth) / 2,
-            x0 = xmin;
-
-        ctx.fillStyle = '#a0a0a0';
-        ctx.fillRect(xmin - cellMarkSize + 1, fontBaseline, cellMarkSize, 1);
-        ctx.fillRect(xmin, fontBaseline, 1, cellMarkSize);
-        ctx.fillRect(xmax, fontBaseline, cellMarkSize, 1);
-        ctx.fillRect(xmax, fontBaseline, 1, cellMarkSize);
-
-        ctx.fillStyle = '#000000';
-        glyph.draw(ctx, x0, fontBaseline, fontSize);
-    }
+    });         
+}
 
     function clearFontSymbols() {
         $.ajax({
@@ -263,6 +267,8 @@
             success: function (data) {
                 if (data.success) {
                     console.log(data);
+
+                    location.reload();
                 }
                 else {
                     console.log('failed: ' + data);

@@ -68,8 +68,12 @@
                     </div>
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href=@Url.Action("Index", "Admin")><i class="fa fa-home fa-fw"></i> Dashboard</a>
+                            <a href=@Url.Action("Index", "Admin")><i class="fa fa-home fa-fw"></i> Bảng điều khiển</a>
                         </li>
+                        <li>
+                            <a href=@Url.Action("FontList", "Admin")><i class="fa fa-tasks fa-fw"></i> Danh sách Font</a>
+                        </li>
+                        
                         @*@if (ViewBag.IsAdmin)
                         {
                         <li>

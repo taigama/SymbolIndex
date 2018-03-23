@@ -93,7 +93,7 @@ namespace SymbolIndex.Controllers
         }
 
         [HttpPost]
-        public ActionResult CommitTags(int fontId, List<SymbolView> viewSymbols)
+        public ActionResult CommitTags(int fontId, [ModelBinder(typeof(ViewSymbolsBinder))] List<SymbolView> viewSymbols)
         {
             var font = db.Fonts.Find(fontId);
             if (font == null)
@@ -147,6 +147,7 @@ namespace SymbolIndex.Controllers
 
                 db.Entry(symTemp).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+                tagsInDb = db.Tags.ToList();
             }
 
 
