@@ -156,6 +156,31 @@ namespace SymbolIndex.Controllers
             return PartialView("_FontSymbolsTBody");
         }
 
+
+        [HttpPost]
+        public ActionResult DeleteSymbol(int? Id)
+        {
+            if (Id == null)
+            {
+                return HttpNotFound("symbol id can not be null");
+            }
+
+            var symbol = db.Symbols.Find(Id);
+            if (symbol == null)
+            {
+                return HttpNotFound("symbol id was not found");
+            }
+
+            var font = symbol.Font;
+            ViewData["fontCurrent"] = font;
+
+            db.Symbols.Remove(symbol);
+            db.SaveChanges();
+
+            ViewData["symbols"] = db.Symbols.Where(x => x.FontId == font.Id).ToList();
+            return PartialView("_FontSymbolsTBody");
+        }
+
         public ActionResult FontList()
         {
             return View(db.Fonts.ToList());

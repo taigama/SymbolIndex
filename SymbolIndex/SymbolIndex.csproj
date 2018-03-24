@@ -328,6 +328,7 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="ConnectionStrings.config" />
     <None Include="Properties\PublishProfiles\SymbolIndex - Web Deploy.pubxml" />
     <Content Include="Scripts\dist\opentype.js.map" />
     <Content Include="Scripts\dist\opentype.min.js.map" />

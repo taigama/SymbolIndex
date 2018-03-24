@@ -39,9 +39,9 @@
 
         
 
-        <button class="btn btn-primary" onclick="resetSymbols()">Auto generate list of symbols</button>
-        <button class="btn btn-warning" onclick="clearFontSymbols()">Clear all symbols</button>
-        <button class="btn btn-info" onclick="commitTags()">Commit tags</button>
+        <button class="btn btn-primary" onclick="resetSymbols()">Tự tạo danh sách symbol</button>
+        <button class="btn btn-warning" onclick="clearFontSymbols()">Xoá hết symbol của font này</button>
+        <button class="btn btn-success" onclick="commitTags()">Cập nhật các tag</button>
 
 
         <div class="panel panel-default">
@@ -227,37 +227,57 @@
     }
 
 
-    var checkCommit;
-function commitTags() {
 
-    var symbolsDatas = [];
-    $.each($('#list').children(), function (i, child) {
-        symbolsDatas.push( {
-            Sid: $('#sid_' + i).html(),
-            OName: $('#sname_' + i).html(),
-            Content: $('#content_' + i).html(),
-            Tags: $('#tags_' + i).val()
+    function commitTags() {
+
+        var symbolsDatas = [];
+        $.each($('#list').children(), function (i, child) {
+            symbolsDatas.push( {
+                Sid: $('#sid_' + i).html(),
+                OName: $('#sname_' + i).html(),
+                Content: $('#content_' + i).html(),
+                Tags: $('#tags_' + i).val()
+            });
         });
-    });
 
-    checkCommit = symbolsDatas;
+        $.ajax({
+            url: "/Admin/CommitTags?fontId=@fontCurrent.Id",
+            type: "POST",
+            data: JSON.stringify ({ viewSymbols: symbolsDatas }),
+            dataType: 'html',
+            traditional: true,
+            success: function (data) {
+                $('#table_content').html(data);
 
-    $.ajax({
-        url: "/Admin/CommitTags?fontId=@fontCurrent.Id",
-        type: "POST",
-        data: JSON.stringify ({ viewSymbols: symbolsDatas }),
-        dataType: 'html',
-        traditional: true,
-        success: function (data) {
-            $('#table_content').html(data);
+                alert("cập nhật tags thành công");
+            },
+            error: function (err) {
+                document.write("Error: " + err.responseText);
+            }
+        });         
+    }
 
-            alert("cập nhật tags thành công");
-        },
-        error: function (err) {
-            document.write("Error: " + err.responseText);
-        }
-    });         
-}
+    function removeSymbol(id) {
+
+        var okMen = confirm("Bạn có chắc muốn xoá ký tự mã: " + id + " ?");
+        if (!okMen)
+            return;
+
+        $.ajax({
+            url: "/Admin/DeleteSymbol/" + id,
+            type: "POST",
+            dataType: 'html',
+            traditional: true,
+            success: function (data) {
+                $('#table_content').html(data);
+
+                alert("đã xoá symbol mã: " + id);
+            },
+            error: function (err) {
+                document.write("Error: " + err.responseText);
+            }
+        });         
+    }
 
     function clearFontSymbols() {
         $.ajax({

@@ -17,7 +17,7 @@
                 <input id="tags_@i" style="width:100%;padding-left:2px;padding-right:2px"
                        value="@SymbolIndex.Data.SIExtension.ToString(symbol.Tags)" />
             </td>
-            <td style="width:15%"></td>
+            <td style="width:15%"><button class="btn btn-danger btn-xs" onclick="removeSymbol(@symbol.Id)">Xoá</button></td>
         </tr>
         i++;
     }
