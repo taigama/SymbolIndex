@@ -8,6 +8,8 @@ using SymbolIndex.Models;
 using Newtonsoft.Json;
 using System.Data.SqlClient;
 using System.Data;
+using System.Web.Script.Serialization;
+using System.Text;
 
 namespace SymbolIndex.Controllers
 {
@@ -36,7 +38,7 @@ namespace SymbolIndex.Controllers
 
         [HttpHeaderAttribute("Access-Control-Allow-Origin", "*")]
         [HttpGet]
-        public ActionResult GetOverall()
+        public ActionResult GetOverall(string callback)
         {
             object data = new
             {
@@ -47,6 +49,19 @@ namespace SymbolIndex.Controllers
             };
             
             return ParseJson(data, 2);
+        }
+
+        [HttpGet]
+        public JsonpResult GetData()
+        {
+            object data = new
+            {
+                Fonts = db.Database.SqlQuery<FontSimple>("select * from dbo.Font"),
+                Symbols = db.Database.SqlQuery<SymbolSimple>("select * from dbo.Symbol"),
+                Tags = db.Database.SqlQuery<TagSimple>("select * from dbo.Tag"),
+                TagSymbols = db.Database.SqlQuery<TagSymbolSimple>("select Tag_Id,Symbol_Id from dbo.TagSymbol")
+            };
+            return ParseJsonp(data, 2);
         }
 
         [HttpHeaderAttribute("Access-Control-Allow-Origin", "*")]
@@ -91,8 +106,23 @@ namespace SymbolIndex.Controllers
                 Data = data,
                 JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
                 Settings = {
-            ReferenceLoopHandling = referenceLoopHandling,
-            MaxDepth = depth// product, productdetail, author
+                    ReferenceLoopHandling = referenceLoopHandling,
+                    MaxDepth = depth// product, productdetail, author
+                }
+            };
+            return result;
+        }
+
+        public JsonpResult ParseJsonp(object data, int depth = 1
+            , ReferenceLoopHandling referenceLoopHandling = ReferenceLoopHandling.Ignore)
+        {
+            var result = new JsonpResult
+            {
+                Data = data,
+                JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
+                Settings = {
+                    ReferenceLoopHandling = referenceLoopHandling,
+                    MaxDepth = depth// product, productdetail, author
                 }
             };
             return result;
