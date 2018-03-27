@@ -139,15 +139,13 @@ namespace SymbolIndex.Data
 
     public class JsonpResult : JsonNetResult
     {
-        object data = null;
-
         public JsonpResult()
         {
         }
 
         public JsonpResult(object data)
         {
-            this.data = data;
+            this.Data = data;
         }
 
         public override void ExecuteResult(ControllerContext controllerContext)
@@ -163,10 +161,10 @@ namespace SymbolIndex.Data
                     throw new Exception("Callback function name must be provided in the request!");
                 }
                 Response.ContentType = "application/x-javascript";
-                if (data != null)
+                if (Data != null)
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Response.Write(string.Format("{0}({1});", callbackfunction, serializer.Serialize(data)));
+                    Response.Write(string.Format("{0}({1});", callbackfunction, serializer.Serialize(Data)));
                 }
             }
         }

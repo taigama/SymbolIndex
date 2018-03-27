@@ -61,6 +61,7 @@ namespace SymbolIndex.Controllers
                 Tags = db.Database.SqlQuery<TagSimple>("select * from dbo.Tag"),
                 TagSymbols = db.Database.SqlQuery<TagSymbolSimple>("select Tag_Id,Symbol_Id from dbo.TagSymbol")
             };
+
             return ParseJsonp(data, 2);
         }
 
