@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\HtmlHeaderAttribute.cs" />
     <Compile Include="Data\ViewSymbolsBinder.cs" />
     <Compile Include="Data\Helper.cs" />
     <Compile Include="Global.asax.cs">

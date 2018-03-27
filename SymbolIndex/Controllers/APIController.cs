@@ -16,6 +16,7 @@ namespace SymbolIndex.Controllers
         SIContext db = new SIContext();
 
         //[Route("API/GetFontInfo/{id}")]
+        [HttpHeaderAttribute("Access-Control-Allow-Origin", "*")]
         [HttpGet]
         public ActionResult GetFontInfo(int id, bool more = false)
         {
@@ -33,6 +34,7 @@ namespace SymbolIndex.Controllers
             return ParseJson(theFont??"Font info not found", 3);
         }
 
+        [HttpHeaderAttribute("Access-Control-Allow-Origin", "*")]
         [HttpGet]
         public ActionResult GetOverall()
         {
@@ -47,6 +49,7 @@ namespace SymbolIndex.Controllers
             return ParseJson(data, 2);
         }
 
+        [HttpHeaderAttribute("Access-Control-Allow-Origin", "*")]
         [HttpGet]
         public ActionResult GetTable(string id)
         {

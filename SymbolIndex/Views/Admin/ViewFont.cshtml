@@ -166,8 +166,15 @@
             symbolsInXUTF.push(formatUnicode(child.unicode));
         });*@
 
+        var checkUni, checkFU, checkPI, checkFCC;
         $.each(font.glyphs.glyphs, function (i, child) {
-            if (child.unicode)
+            if (child.unicode) {
+                checkUni = child.unicode;
+                checkFU = formatUnicode(checkUni);
+                checkPI = parseInt(checkFU, 16);
+                checkFCC = String.fromCharCode(checkPI);
+            }
+
                 symbolsInXUTF.push(String.fromCharCode(parseInt(formatUnicode(child.unicode), 16)));
         });
         //

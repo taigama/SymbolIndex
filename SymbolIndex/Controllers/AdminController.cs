@@ -15,13 +15,17 @@ namespace SymbolIndex.Controllers
     {
         SIContext db = new SIContext();
 
-        // GET: Admin
+        #region Views
+
         public ActionResult Index()
         {
-            var dict = ListFont(3);
-
-
             return View();
+        }
+
+
+        public ActionResult FontList()
+        {
+            return View(db.Fonts.ToList());
         }
 
         [HttpGet]
@@ -39,6 +43,10 @@ namespace SymbolIndex.Controllers
             return View();
         }
 
+        #endregion
+
+        #region Post & Partial
+        #region of-ViewFont
         [HttpPost]
         public ActionResult AddSymbols(int fontId, List<string> symbolsInXUTF)
         {
@@ -181,13 +189,10 @@ namespace SymbolIndex.Controllers
             return PartialView("_FontSymbolsTBody");
         }
 
-        public ActionResult FontList()
-        {
-            return View(db.Fonts.ToList());
-        }
+        #endregion
+        #endregion
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public ActionResult UploadFiles()
         {
             // Checking no of files injected in Request object  

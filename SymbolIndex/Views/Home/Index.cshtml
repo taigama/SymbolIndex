@@ -151,10 +151,14 @@
         function copyText(id) {
             var dt = new clipboard.DT();
             dt.setData("text/plain", $('#' + id + '_sub').html());
-            dt.setData("text/html", $('#' + id).html());
+            //'<font face="@fontCurrent.FontName">' + $('#' + id + '_sub').html() +'</font>'
+            // '<span style="font-family: FontAwesome;">' + $('#' + id + '_sub').html() + '</span>'
+            //dt.setData("text/html", '<font face="@fontCurrent.FontName">' + $('#' + id + '_sub').html() +'</font>');
             clipboard.write(dt);
 
             showSnackbar();
+
+            alert('We cannot access your clipboard/rtf.\nPlease manual change the font of symbol (in Word) to match the website font')
         }
 
         function showSnackbar() {
@@ -165,8 +169,9 @@
             x.className = "show";
 
             // After 3 seconds, remove the show class from DIV
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 2000);
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
         }
+        
     </script>
 </body>
 </html>
