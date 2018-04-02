@@ -3,32 +3,3 @@
     ViewBag.Title = "Bảng điều khiển";
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
-<button onclick="getJSON()">
-    get json now!
-</button>
-
-<div id="area">
-
-</div>
-
-<script>
-    var result;
-    function getJSON() {
-        $.ajax({
-            url: "http://symbolindex.azurewebsites.net/API/GetOverall",
-            type: "GET",
-            dataType: 'json',
-            traditional: true,
-            success: function (data) {
-                result = data;
-                $('#area').html(data);
-            },
-            error: function (err) {
-                document.write("Error: " + err.responseText);
-            }
-        });
-    }    
-</script>

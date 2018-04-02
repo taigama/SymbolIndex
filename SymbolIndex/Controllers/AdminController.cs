@@ -190,72 +190,114 @@ namespace SymbolIndex.Controllers
         }
 
         #endregion
-        #endregion
 
+        #region of-ListFont
         [HttpPost]
-        public ActionResult UploadFiles()
+        public ActionResult UploadFont()
         {
             // Checking no of files injected in Request object  
             if (Request.Files.Count > 0)
             {
-                try
+                //  Get all files from Request object  
+                HttpFileCollectionBase files = Request.Files;
+                string name = Request.Form.Get("name");
+
+                for (int i = 0; i < files.Count; i++)
                 {
-                    //  Get all files from Request object  
-                    HttpFileCollectionBase files = Request.Files;
-                    for (int i = 0; i < files.Count; i++)
+                    //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                    //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                    HttpPostedFileBase file = files[i];
+                    string fname = String.Empty;
+                    string fpath = String.Empty;
+                    string fstorePath = String.Empty;
+
+                    // Checking for Internet Explorer  
+                    if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
                     {
-                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
-                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
-
-                        HttpPostedFileBase file = files[i];
-                        string fname = String.Empty;
-                        string fpath = String.Empty;
-                        string fstorePath = String.Empty;
-
-                        // Checking for Internet Explorer  
-                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
-                        {
-                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
-                            fname = testfiles[testfiles.Length - 1];
-                        }
-                        else
-                        {
-                            fname = file.FileName;
-                        }
-
-                        // Get the complete folder path and store the file inside it.  
-
-                        do
-                        {
-                            fpath = RandomString(10) + fname;
-                            fstorePath = Path.Combine(Server.MapPath("~/fonts/"), fpath);
-                            fpath = @"~/UploadFiles/" + fpath;
-                        } while (System.IO.File.Exists(fstorePath));
-
-                        file.SaveAs(fstorePath);
+                        string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                        fname = testfiles[testfiles.Length - 1];
+                    }
+                    else
+                    {
+                        fname = file.FileName;
                     }
 
-                    
-                    return Json("fpath", JsonRequestBehavior.AllowGet);
+                    // Get the complete folder path and store the file inside it.  
+
+                    fpath = /*RandomString(10) +*/ fname;
+                    fstorePath = Path.Combine(Server.MapPath("~/fonts/"), fpath);
+                    fpath = @"/fonts/" + fpath;
+                    if(System.IO.File.Exists(fstorePath))
+                    {
+                        Response.StatusCode = 400;
+                        Response.StatusDescription = "font has exist!";
+                        return null;
+                    }
+
+                    file.SaveAs(fstorePath);
+                    Font fontInfo = new Font
+                    {
+                        FontName = name,
+                        FontUrl = fpath
+                    };
+                    db.Fonts.Add(fontInfo);
+                    db.SaveChanges();
                 }
-                catch
-                {
-                    return Json("SOMETHING_NOT_RIGHT", JsonRequestBehavior.AllowGet);
-                }
+
+                return PartialView("_FontsTBody", db.Fonts.ToList());
             }
             else
             {
-                return Json("OK", JsonRequestBehavior.AllowGet);
+                Response.StatusCode = 400;
+                return PartialView("_FontsTBody", db.Fonts.ToList());
             }
         }
 
-        public static string RandomString(int length)
+        [HttpPost]
+        public ActionResult DeleteFont(int? id)
         {
-            Random random = new Random();
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+            if(id == null)
+            {
+                Response.StatusCode = 400;
+                Response.StatusDescription = "must submit id!";
+                return null;
+            }
+
+            Font fontInfo = db.Fonts.Find(id);
+            if (fontInfo == null)
+            {
+                Response.StatusCode = 404;
+                Response.StatusDescription = "the font with id: " + id.ToString() +" was not found!";
+                return null;
+            }
+
+            string fullPath = Request.MapPath("~" + fontInfo.FontUrl);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+            db.Fonts.Remove(fontInfo);
+            db.SaveChanges();
+
+
+            return PartialView("_FontsTBody", db.Fonts.ToList());
         }
+
+        #endregion
+
+
+        #endregion
+
+
+
+        //public static string RandomString(int length)
+        //{
+        //    Random random = new Random();
+        //    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        //    return new string(Enumerable.Repeat(chars, length)
+        //      .Select(s => s[random.Next(s.Length)]).ToArray());
+        //}
 
         public IDictionary<int, ushort> ListFont(int? fontId)
         {

@@ -215,6 +215,7 @@
     <Content Include="Assets\css\bootstrap.min.css.map" />
     <Content Include="Assets\css\mycss.css" />
     <Content Include="Assets\css\sb-admin-2.min.css" />
+    <Content Include="Assets\css\spinner.css" />
     <Content Include="Assets\css\toast.css" />
     <Content Include="Assets\font-awesome\css\fa-brands.css" />
     <Content Include="Assets\font-awesome\css\fa-brands.min.css" />
@@ -454,6 +455,7 @@
     <Content Include="Views\Admin\FontList.cshtml" />
     <Content Include="Views\Admin\ViewFont.cshtml" />
     <Content Include="Views\Admin\_FontSymbolsTBody.cshtml" />
+    <Content Include="Views\Admin\_FontsTBody.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

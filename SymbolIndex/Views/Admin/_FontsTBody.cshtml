@@ -1,0 +1,28 @@
+﻿
+@model IList<SymbolIndex.Models.Font>
+<tbody id="list">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="width:5%">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td style="width:18%">
+                @Html.DisplayFor(modelItem => item.FontName)
+            </td>
+            <td style="width:60%">
+                @Html.DisplayFor(modelItem => item.FontUrl)
+            </td>
+            <td style="width:17%">
+                <button class="btn btn-xs btn-info"
+                        onclick="window.location='/Admin/ViewFont/@item.Id'">
+                    Xem
+                </button>
+                <button class="btn btn-xs btn-danger"
+                        onclick="deleteFont(@item.Id)">
+                    Xoá
+                </button>
+            </td>
+        </tr>
+    }
+</tbody>
