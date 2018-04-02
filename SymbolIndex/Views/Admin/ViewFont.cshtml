@@ -102,9 +102,23 @@
     </div>
 </div>
 
+<div id="modal"
+     class="modal fade">
+    <div class="modal-dialog" role="dialog">
+        <div class="modal-content" align="center">
+            <div class="panel panel-default" style="margin-bottom:0">
+                <div
+                     id="status"
+                     class="panel-body" align="center">
+                    <i class="fas fa-asterisk spinner"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section AddToHead{
-    <link href="~/Assets/css/mycss.css" rel="stylesheet" type="text/css" />
+    @*<link href="~/Assets/css/mycss.css" rel="stylesheet" type="text/css" />*@
     <link rel="stylesheet" href="~/Assets/css/spinner.css">
     <style>
 
@@ -156,7 +170,7 @@
 
     function parseCharacters(font) {
         window.font = font;
-
+        $("#modal").modal('show');
         //alert('unicode of #8: ' + formatUnicode(font.glyphs.glyphs[8].unicode));
         var symbolsInXUTF = [];
         
@@ -194,9 +208,12 @@
             traditional: true,
             success: function (data) {
                 $('#table_content').html(data);
+                $("#modal").modal('hide');
             },
             error: function (err) {
-                document.write("Error: " + err.responseText);
+                showError(err);
+                alert(err.statusText);
+                $("#modal").modal('hide');
             }
         });
 
@@ -237,7 +254,7 @@
 
 
     function commitTags() {
-
+        $("#modal").modal('show');
         var symbolsDatas = [];
         $.each($('#list').children(), function (i, child) {
             symbolsDatas.push( {
@@ -256,11 +273,13 @@
             traditional: true,
             success: function (data) {
                 $('#table_content').html(data);
-
                 alert("cập nhật tags thành công");
+                $("#modal").modal('hide');
             },
             error: function (err) {
-                document.write("Error: " + err.responseText);
+                showError(err);
+                alert(err.statusText);
+                $("#modal").modal('hide');
             }
         });         
     }
@@ -271,6 +290,7 @@
         if (!okMen)
             return;
 
+        $("#modal").modal('show');
         $.ajax({
             url: "/Admin/DeleteSymbol/" + id,
             type: "POST",
@@ -280,14 +300,18 @@
                 $('#table_content').html(data);
 
                 alert("đã xoá symbol mã: " + id);
+                $("#modal").modal('hide');
             },
             error: function (err) {
-                document.write("Error: " + err.responseText);
+                showError(err);
+                alert(err.statusText);
+                $("#modal").modal('hide');
             }
         });         
     }
 
     function clearFontSymbols() {
+        $("#modal").modal('show');
         $.ajax({
             url: "/Admin/ClearFontSymbols?fontId=@fontCurrent.Id",
             type: "POST",
@@ -301,9 +325,12 @@
                 else {
                     console.log('failed: ' + data);
                 }
+                $("#modal").modal('hide');
             },
             error: function (err) {
-                document.write("Error: " + err.responseText);
+                showError(err);
+                alert(err.statusText);
+                $("#modal").modal('hide');
             }
         });
     }
@@ -316,5 +343,10 @@
             return ("0000" + unicode.toUpperCase()).substr(-4)
         }
     }
-    
+
+    function showError(err) {
+        var win = window.open("", "MsgWindow", "width=1366,height=768");
+        win.document.write(err.responseText);
+        win.focus();
+    }    
 </script>
