@@ -295,6 +295,7 @@
     <Content Include="Assets\js\popper.js.map" />
     <Content Include="Assets\js\popper.min.js" />
     <Content Include="Assets\js\popper.min.js.map" />
+    <Content Include="Assets\js\punycode.min.js" />
     <Content Include="Assets\js\sb-admin-2.js" />
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap-select.min.css" />

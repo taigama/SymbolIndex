@@ -147,7 +147,10 @@
         }
     </style>
 }
+
+<script src="~/Assets/js/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/dist/opentype.min.js"></script>
+<script src="~/Assets/js/punycode.min.js"></script>
 <script>
     var font, check;
 
@@ -175,27 +178,25 @@
         var symbolsInXUTF = [];
         
 
-        @*var i = 0;
-        var jGlyphs = $.makeArray(font.glyphs.glyphs);
-        jGlyphs.each(function (child) {
-            symbolsInXUTF.push(formatUnicode(child.unicode));
-        });*@
-
         var checkUni, checkFU, checkPI, checkFCC;
         $.each(font.glyphs.glyphs, function (i, child) {
-            if (child.unicode) {
+            @*if (child.unicode) {
                 checkUni = child.unicode;
                 checkFU = formatUnicode(checkUni);
                 checkPI = parseInt(checkFU, 16);
                 checkFCC = String.fromCharCode(checkPI);
-            }
+            }*@
+            if (child.unicode) {
+                @*if (child.unicode < 65536) {
+                    symbolsInXUTF.push(String.fromCharCode(parseInt(formatUnicode(child.unicode), 16)));
+                }
+                else {
+                    symbolsInXUTF.push(String.fromCharCode(parseInt(formatUnicode(child.unicode), 32)));
+                }*@
 
-                symbolsInXUTF.push(String.fromCharCode(parseInt(formatUnicode(child.unicode), 16)));
+                symbolsInXUTF.push(encode(child.unicode));
+            }
         });
-        //
-        @*for (var i = 0; i < font.glyphs.length; i++) {
-            symbolsInXUTF.push(formatUnicode(font.glyphs.glyphs[i].unicode));
-        }*@
 
         $.ajax({
             url: "/Admin/AddSymbols",
@@ -335,13 +336,20 @@
         });
     }
 
-    function formatUnicode(unicode) {
+    @*function formatUnicode(unicode) {
         unicode = Number(unicode).toString(16);
         if (unicode.length > 4) {
             return ("000000" + unicode.toUpperCase()).substr(-6)
         } else {
             return ("0000" + unicode.toUpperCase()).substr(-4)
         }
+    }*@
+
+    var a = [];
+    function encode(unicode) {
+        a.length = 0;
+        a.push(Number(unicode));
+        return punycode.ucs2.encode(a);
     }
 
     function showError(err) {
