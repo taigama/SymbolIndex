@@ -10,13 +10,14 @@ namespace SymbolIndex.Data
     public class SIContext : DbContext
     {
         public SIContext()
-            : base("name=SIContextAzure")
+            : base("name=SIContext")
         {
         }
 
         public DbSet<Font> Fonts { get; set; }
         public DbSet<Symbol> Symbols { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<FeedbackModel> Feeds { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -46,7 +46,7 @@
             </button>
             <div id="navbarNavDropdown" class="navbar-collapse collapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
+                    @*<li class="nav-item dropdown">*@
 
                         @*<select id="ddl_font" name="ddl_font"
                                     class="selectpicker" data-live-search="true">
@@ -70,6 +70,11 @@
                     <li class="nav-item vcenter">
                         <a href="@fontCurrent.FontUrl">
                             <img class="navbar-icon" src="~/Assets/image/download.ico"> <text style="color:#00ffff"> Download font</text>
+                        </a>
+                    </li>
+                    <li class="nav-item vcenter">
+                        <a class="hoverx" onclick="$('#modal_feedback').modal('show')">
+                            <text style="color:#ffffff"> Gửi phản hồi </text>
                         </a>
                     </li>
                 </ul>
@@ -143,23 +148,71 @@
          class="modal fade">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
-                <div class="panel panel-default" style="margin-bottom:0">
-                    <div class="panel-heading" style="background-color:rgb(1, 180, 85); color:aliceblue">
-                        <i class="fa fa-file-text fa-fw"></i> Thông tin khách hàng
+                <div class="panel" style="padding:10px">
+                    Chào mừng bạn đến với trang phản hồi
+                    <hr style="margin-top:1px"/>
+                    Bạn là 
+                    <input
+                           id="feed_name"
+                           type="text"
+                           placeholder="Có thể bỏ trống" 
+                           style="width:70%"
+                           />
+                    <br />
+                    Email&nbsp;
+                    <input
+                           id="feed_email"
+                           type="text"
+                           placeholder="Có thể bỏ trống" 
+                           style="width:70%"
+                           />
+                    <br />                    
+                    <br />Bạn thấy màu sắc của trang web này như thế nào
+                    <div style="border:dashed;border-width:1px;padding:5px">
+                        Thanh điều hướng<br />
+                        <input id="feed_color_navi"
+                               type="text"
+                               placeholder="(Ổn), hoặc có góp ý"
+                               style="width:100%" />
+                        <br />Nền web<br />
+                        <input id="feed_color_body"
+                               type="text"
+                               placeholder="(Ổn), (Nên dùng màu tối (như thế nào đó)), hoặc có góp ý khác"
+                               style="width:100%" />
+                        <br />Các thẻ<br />
+                        <input id="feed_color_item"
+                               type="text"
+                               placeholder="(Ổn), (Nên dùng màu tối (như thế nào đó)), hoặc có góp ý khác" 
+                               style="width:100%"/>
                     </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-
-                        <input name="uploadFont" id="uploadFont"
-                               class="inputfile"
-                               type="file"
-                               accept=".otf, .ttf" />
-                        Tên Font: <input id="fontName" value="" />
-                        <button onclick="uploadFont()">
-                            Thêm font này
-                        </button>
-
+                    <br />Bạn có góp ý gì về chức năng không?
+                    <div style="border:dashed;border-width:1px;padding:5px;margin-bottom:3px">
+                        Khi click vào symbol trên web<br />
+                        <form>
+                            <input type="radio" name="feed_func_item"
+                                   value="Như cũ"/>
+                            <text class="hoverx" onclick="focusRadio(0)">Như hiện tại, click vào là copy ngay</text><br />
+                            <input type="radio" name="feed_func_item"
+                                   value="Mở info"/>
+                            <text class="hoverx" onclick="focusRadio(1)">Hiện ra bảng thông tin, cho phép copy ký tự, hoặc copy hình, hoặc hiển thị thông tin chi tiết</text><br />
+                            <input type="radio" name="feed_func_item"
+                                   value="Khác"/>
+                            <input id="feed_func_orther" type="text"
+                                   placeholder="Khác" style="width:90%"
+                                   onclick="focusRadio(2)"/>
+                        </form>
                     </div>
+                    <br />Góp ý khác<br />
+                    <textarea id="feed_overall"
+                              placeholder="(Tổng thể trang web này...)"
+                              rows="2"
+                              style="width:100%"
+                              ></textarea>
+                    <br />
+                    <div style="text-align:center">
+                        <button class="btn btn-info" onclick="feedback()">Gửi phản hồi</button>
+                    </div>
+                    
                 </div>
 
             </div>
@@ -199,6 +252,93 @@
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
         }
 
+        function feedback() {
+            $('#modal_feedback').modal('hide');
+            var content = getFeedback();
+
+            $.ajax({
+                url: '/Home/Feedback/',
+                type: "POST",
+                data: { 'content': content},
+                dataType: 'json',
+                success: function (result) {
+                    alert(result.text);
+                },
+                error: function (err) {
+                    showError(err);
+                    alert(err.statusText);
+                }
+            });
+        }
+
+        function getDataRadio() {
+
+            var radios = document.getElementsByName('feed_func_item');
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    if (radios[i].value == "Khác") {
+                        return $('#feed_func_orther').val();
+                    }
+                    else {
+                        return radios[i].value;
+                    }
+                }
+            }
+
+            return "";
+        }
+
+        function focusRadio(index) {
+            var radios = document.getElementsByName('feed_func_item');
+            if (index >= radios.length)
+                return;
+            radios[index].checked = true;
+        }
+
+        function getFeedback() {
+            var str = "";
+            if ($('#feed_name').val()) {
+                str += '- Name: ' + $('#feed_name').val();
+            }
+            if ($('#feed_email').val()) {
+                str += '- Email: ' + $('#feed_email').val();
+            }
+
+            var color_navi = $('#feed_color_navi').val();
+            var color_body = $('#feed_color_body').val();
+            var color_item = $('#feed_color_item').val();
+            if (color_navi || color_body || color_item) {
+                str += '\n\n- Color------';
+                if (color_navi) {
+                    str += '\n--- navigate bar: ' + color_navi;
+                }
+                if (color_body) {
+                    str += '\n--- body: ' + color_body;
+                }
+                if (color_item) {
+                    str += '\n--- item: ' + color_item;
+                }
+            }
+
+            var radio = getDataRadio();
+            if (radio) {
+                str += '\n\n- Function------' +
+                    '\n--- item click: ' + radio;
+            }
+            
+            
+            if ($('#feed_overall').val()) {
+                str += '\n\n- Overall------\n' + $('#feed_overall').val();
+            }
+
+            return str;
+        }
+
+        function showError(err) {
+            var win = window.open("", "MsgWindow", "width=1366,height=768");
+            win.document.write(err.responseText);
+            win.focus();
+        }
     </script>
 </body>
 </html>

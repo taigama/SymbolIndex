@@ -65,5 +65,32 @@ namespace SymbolIndex.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Feedback(string content)
+        {
+            if(string.IsNullOrWhiteSpace(content))
+            {
+                return Json(
+                new
+                {
+                    success = false,
+                    text = "Bạn đã phản hồi nội dung rỗng"
+                },
+                JsonRequestBehavior.AllowGet);
+            }
+
+            db.Feeds.Add( new FeedbackModel { Content = content });
+            db.SaveChanges();
+
+            return Json(
+                new
+                {
+                    success = true,
+                    text = "Cảm ơn bạn đã gửi phản hồi về cho chúng tôi." +
+                    " Chúng tôi sẽ cải thiện website tốt hơn dựa trên phản hồi từ bạn. ^^"
+                },
+                JsonRequestBehavior.AllowGet);
+        }
     }
 }
