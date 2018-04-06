@@ -1,0 +1,13 @@
+﻿@model IEnumerable<SymbolIndex.Models.FeedbackModel>
+
+<tbody id="list">
+    @foreach (var feed in Model)
+    {
+        <tr>
+            <td style="width:10%">@Html.DisplayFor(modelItem => feed.Id)</td>
+            <td style="width:75%">@feed.Content.Substring(0, (20 < feed.Content.Length? 20:feed.Content.Length))</td>            
+            <td style="width:15%"><button class="btn btn-info btn-xs" onclick="showFeed('feed_@feed.Id')">Xem</button></td>
+            <td class="hidden"id="feed_@feed.Id" >@feed.Content</td>
+        </tr>        
+    }
+</tbody>

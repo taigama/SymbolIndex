@@ -297,38 +297,45 @@
 
         function getFeedback() {
             var str = "";
-            if ($('#feed_name').val()) {
-                str += '- Name: ' + $('#feed_name').val();
+
+            var name = $('#feed_name').val();
+            var email = $('#feed_email').val();
+            if (name || email) {
+                if (name) {
+                    str += '- Name: ' + name + '\n';
+                }
+                if (email) {
+                    str += '- Email: ' + email + '\n';
+                }
+                str += '\n';
             }
-            if ($('#feed_email').val()) {
-                str += '- Email: ' + $('#feed_email').val();
-            }
+            
 
             var color_navi = $('#feed_color_navi').val();
             var color_body = $('#feed_color_body').val();
             var color_item = $('#feed_color_item').val();
             if (color_navi || color_body || color_item) {
-                str += '\n\n- Color------';
+                str += '- Color------\n';
                 if (color_navi) {
-                    str += '\n--- navigate bar: ' + color_navi;
+                    str += '--- navigate bar: ' + color_navi + '\n';
                 }
                 if (color_body) {
-                    str += '\n--- body: ' + color_body;
+                    str += '--- body: ' + color_body + '\n';
                 }
                 if (color_item) {
-                    str += '\n--- item: ' + color_item;
+                    str += '--- item: ' + color_item + '\n';
                 }
+                str += '\n';
             }
 
             var radio = getDataRadio();
             if (radio) {
-                str += '\n\n- Function------' +
-                    '\n--- item click: ' + radio;
-            }
-            
+                str += '- Function------\n' +
+                    '--- item click: ' + radio + '\n\n';
+            }            
             
             if ($('#feed_overall').val()) {
-                str += '\n\n- Overall------\n' + $('#feed_overall').val();
+                str += '- Overall------\n' + $('#feed_overall').val();
             }
 
             return str;
