@@ -79,13 +79,12 @@
                     @* ---- table body ----*@
                     <div style="height:300px;overflow: hidden; overflow-y:scroll;" id="div_table">
                         <table class="table table-striped table-bordered table-hover" id="table_content">
-                            @Html.Partial("_FontSymbolsTBody",
-                           new ViewDataDictionary()
-                           {
-                               ["fontCurrent"] = fontCurrent,
-                               ["symbols"] = symbols
-                           }
-                           )
+                            @{ 
+                                var dict = new ViewDataDictionary();
+                                dict["fontCurrent"] = fontCurrent;
+                                dict["symbols"] = symbols;
+                            }
+                            @Html.Partial("_FontSymbolsTBody", dict)
                         </table>
                     </div>
                     @* bottom line*@
