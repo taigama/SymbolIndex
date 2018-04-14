@@ -11,6 +11,7 @@
 }
 
 <head>
+    @Html.Partial("_GG")
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,13 +30,9 @@
             src: url(@fontCurrent.FontUrl);
         }
         .myFont{
-                font-family: '@fontCurrent.FontName';
-            }
-
-
-
+                font-family: '@fontCurrent.FontName';            
+        }
     </style>
-
 </head>
 <body>
     <nav class="navbar navbar-expand-custom navbar-dark bg-dark fixed-top">
