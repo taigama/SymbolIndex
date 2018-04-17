@@ -66,7 +66,7 @@ namespace SymbolIndex.Controllers
             return View();
         }
 
-        [HttpPost]
+        //[HttpPost]
         public ActionResult Feedback(string content)
         {
             if(string.IsNullOrWhiteSpace(content))
