@@ -15,7 +15,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Symbol Index</title>
+    <title>Symbol Search</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css">
@@ -37,7 +37,7 @@
 <body>
     <nav class="navbar navbar-expand-custom navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/Home/Index">SYMBOL INDEX</a>
+            <a class="navbar-brand" href="/Home/Index">SYMBOL SEARCH</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -343,6 +343,36 @@
             win.document.write(err.responseText);
             win.focus();
         }
+
+        @*function parseItem(symbol) {
+            var str = '<div class="symbol-container">\
+    <div class="symbol-area">\
+        <div id="symbol_' + symbol.Id + '" class="symbol myFont hoverx" onclick="' + "copyText('symbol_" + symbol.Id + "')" + '">\
+            <font id="symbol_' + symbol.Id + '_sub" size="8" face="@fontCurrent.FontName">' + symbol.Content + '</font>\
+        </div>\
+\
+        <div class="key">';
+            if (symbol.Tags)
+
+            @if (symbol.Tags != null && symbol.Tags.Count > 0)\
+            {\
+<text>@symbol.Tags.ElementAt(0).TagString</text>\
+            }\
+            @if (symbol.Tags.Count > 1)\
+            {\
+for (int i = 1; i < symbol.Tags.Count; i++)\
+{\
+    <text>, @(symbol.Tags[i].TagString)</text>\
+}\
+            }
+        str += '</div>\
+    </div>\
+</div>'
+        }
+
+        function representTags(tags) {
+            if (tag.length)
+        }*@
     </script>
 </body>
 </html>
