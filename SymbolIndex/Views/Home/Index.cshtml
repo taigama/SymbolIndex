@@ -24,13 +24,62 @@
     <link rel="stylesheet" href="~/Content/bootstrap-select.min.css">
 
     <style>
-
         @@font-face {
             font-family: '@fontCurrent.FontName';
             src: url(@fontCurrent.FontUrl);
         }
         .myFont{
-                font-family: '@fontCurrent.FontName';            
+                font-family: '@fontCurrent.FontName';
+        }
+
+        .blink_me {
+            border:dashed;
+            border-width: 3px;
+            border-color: chartreuse;
+            animation: blinker 1s step-start infinite;
+            padding-right: 5px;
+        }
+
+        @@keyframes blinker {
+            25% {
+            border-color: red;
+            }
+            50% {
+            border-color: cyan;
+            }
+            75% {
+            border-color: hotpink;
+            }
+        }
+
+        /* Tooltip container */
+        .mtooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+        }
+
+        /* Tooltip text */
+        .mtooltip .mtooltiptext {
+            visibility: hidden;
+            width: 340px;
+            background-color: #000B;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+            top: 150%;
+            left: 50%;
+            margin-left: -170px;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .mtooltip:hover .mtooltiptext {
+            visibility: visible;
         }
     </style>
 </head>
@@ -64,9 +113,11 @@
                             }
                         </div>
                     </li>
-                    <li class="nav-item vcenter">
-                        <a href="@fontCurrent.FontUrl">
-                            <img class="navbar-icon" src="~/Assets/image/download.ico"> <text style="color:#00ffff"> Download font</text>
+                    <li class="nav-item vcenter blink_me">
+                        <a class="mtooltip" href="@fontCurrent.FontUrl">
+                            <img class="navbar-icon" src="~/Assets/image/download.ico">
+                            <text style="color:#00ffff"> Download font</text>
+                            <span class="mtooltiptext">Download the font to use the below symbols (some fonts are already stored in your system, e.g. Wingdings)</span>
                         </a>
                     </li>
                     <li class="nav-item vcenter">
