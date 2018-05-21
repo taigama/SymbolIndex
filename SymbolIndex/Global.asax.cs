@@ -47,7 +47,7 @@ namespace SymbolIndex
                     WebClient refresh = new WebClient();
                     try
                     {
-                        refresh.UploadString("http://www.website.com/", string.Empty);
+                        refresh.UploadString("http://symbolsearch.org/", string.Empty);
                     }
                     catch (Exception) {}
                     finally
