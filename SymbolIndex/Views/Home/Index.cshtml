@@ -23,15 +23,8 @@
     <link rel="stylesheet" href="~/Assets/css/mycss.css">
     <link rel="stylesheet" href="~/Content/bootstrap-select.min.css">
 
-    <style>
-        @@font-face {
-            font-family: '@fontCurrent.FontName';
-            src: url(@fontCurrent.FontUrl);
-        }
-        .myFont{
-                font-family: '@fontCurrent.FontName';
-        }
-
+    @Html.Partial("_FontStyle")
+    <style id="styleFont">
         .blink_me {
             border:dashed;
             border-width: 3px;
@@ -63,7 +56,8 @@
         .mtooltip .mtooltiptext {
             visibility: hidden;
             width: 340px;
-            background-color: #000B;
+            opacity: 0.75;
+            background-color: #000;
             color: #fff;
             text-align: center;
             padding: 5px 0;
@@ -146,47 +140,9 @@
     </nav>
 
 
-    <div id="font_id" class="hidden">0</div>
-    <div class="container" style="margin-top: 50px">
-
-
-
-        @*<select id="ddl_font" name="ddl_font"
-                        class="selectpicker" data-live-search="true">
-                    @foreach (var font in fonts)
-                {
-                    <option value="@font.Id">@font.FontName</option>
-            }
-                </select>*@
-
-        <div class="row row-padding-top">
-            @foreach (var symbol in symbols)
-
-            {
-                <div class="symbol-container">
-                    <div class="symbol-area">
-                        <div id="symbol_@symbol.Id" class="symbol myFont hoverx" onclick="copyText('symbol_@symbol.Id')">
-                            <font id="symbol_@(symbol.Id)_sub" size="8" face="@fontCurrent.FontName">@symbol.Content</font>
-                        </div>
-
-                        <div class="key">
-                            @if (symbol.Tags != null && symbol.Tags.Count > 0)
-                            {
-                                <text>@symbol.Tags.ElementAt(0).TagString</text>
-                            }
-                            @if (symbol.Tags.Count > 1)
-                            {
-                                for (int i = 1; i < symbol.Tags.Count; i++)
-                                {
-                                    <text>, @(symbol.Tags[i].TagString)</text>
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
-            }
-
-        </div>
+    <div id="font_id" class="hidden">@fontCurrent.Id</div>
+    <div id="items" class="container" style="margin-top: 50px">
+        @Html.Partial("_Items")        
     </div>
 
     <!-- The actual snackbar -->
@@ -275,6 +231,7 @@
     <script src="~/Scripts/bootstrap-select.min.js"></script>
     <script src="~/Scripts/clipboard-polyfill.js"></script>
     @*<script src="~/Assets/js/punycode.min.js"></script>*@
+
     <script type="text/javascript">
         function copyText(id) {
             var dt = new clipboard.DT();
@@ -288,7 +245,6 @@
 
             //alert('We cannot access your clipboard/rtf.\nPlease manual change the font of symbol (in Word) to match the website font')
         }
-
         function showSnackbar() {
             // Get the snackbar DIV
             var x = document.getElementById("snackbar")
@@ -299,6 +255,9 @@
             // After 3 seconds, remove the show class from DIV
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
         }
+    </script>
+    <script type="text/javascript">
+        
 
         function feedback() {
             $('#modal_feedback').modal('hide');

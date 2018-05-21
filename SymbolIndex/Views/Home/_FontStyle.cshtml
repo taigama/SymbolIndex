@@ -1,0 +1,10 @@
+﻿@{SymbolIndex.Models.Font fontCurrent = ViewBag.FontCurrent;}
+<style id="font_style">
+        @@font-face {
+            font-family: '@fontCurrent.FontName';
+            src: url(@fontCurrent.FontUrl);
+        }
+        .myFont{
+                font-family: '@fontCurrent.FontName';
+        }
+</style>
