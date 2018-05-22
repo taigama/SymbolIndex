@@ -187,29 +187,6 @@
     <script src="~/Scripts/clipboard-polyfill.js"></script>
     @*<script src="~/Assets/js/punycode.min.js"></script>*@
 
-    <script type="text/javascript">
-        function changeFont(event, id) {
-            event.preventDefault;
-
-            // TODO: reload style, items.
-
-        }
-    </script>
-    <script type="text/javascript">
-        function copyText(id) {
-            var dt = new clipboard.DT();
-            dt.setData("text/plain", $('#' + id + '_sub').html());
-            //'<font face="@fontCurrent.FontName">' + $('#' + id + '_sub').html() +'</font>'
-            // '<span style="font-family: FontAwesome;">' + $('#' + id + '_sub').html() + '</span>'
-            //dt.setData("text/html", '<font face="@fontCurrent.FontName">' + $('#' + id + '_sub').html() +'</font>');
-            clipboard.write(dt);
-
-            showSnackbar();
-
-            //alert('We cannot access your clipboard/rtf.\nPlease manual change the font of symbol (in Word) to match the website font')
-        }
-        
-    </script>
         
     <script src="~/Assets/js/home.js"></script>
 

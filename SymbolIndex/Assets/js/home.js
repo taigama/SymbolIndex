@@ -1,4 +1,32 @@
-﻿
+﻿// change font
+function changeFont(event, id) {
+    event.preventDefault;
+    $('#font_current_name').html('loading...');
+    $.ajax({
+        url: "/Home/_FontStyle?fontId=" + id,
+        type: "GET",
+        dataType: 'html',
+        traditional: true,
+        success: function (data) {
+            $('#font_style').replaceWith(data);
+        },
+        error: function (err) {
+            showError(err);
+            alert(err.statusText);
+        }
+    });
+
+    displaySymbols(id);
+}
+
+// coppy text
+function copyText(id) {
+    var dt = new clipboard.DT();
+    dt.setData("text/plain", $('#' + id + '_sub').html());
+    clipboard.write(dt);
+    showSnackbar();
+}
+
 // modal load
 function showLoading() {
     $('.mymodal').addClass('show');
@@ -10,15 +38,16 @@ function hideLoading() {
 
 
 // display items
-var displaySymbols = function () {
+var displaySymbols = function (id) {
     showLoading();
     $.ajax({
-        url: "/Home/_Items?fontId=" + $('#font_id').html(),
+        url: "/Home/_Items?fontId=" + id,
         type: "GET",
         dataType: 'html',
         traditional: true,
         success: function (data) {
             $('#items').html(data);
+            $('#font_current_name').html($('#font_name').html());
             hideLoading();
         },
         error: function (err) {
@@ -29,7 +58,7 @@ var displaySymbols = function () {
     });
 }
 
-displaySymbols();
+displaySymbols($('#font_id').html());
 
 
 
