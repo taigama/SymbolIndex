@@ -285,6 +285,7 @@
     <Content Include="Assets\js\bootstrap.js.map" />
     <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\bootstrap.min.js.map" />
+    <Content Include="Assets\js\home.js" />
     <Content Include="Assets\js\jquery-3.3.1.min.js" />
     <Content Include="Assets\js\metisMenu.min.js" />
     <Content Include="Assets\js\popper-utils.js" />

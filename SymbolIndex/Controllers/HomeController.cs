@@ -19,8 +19,8 @@ namespace SymbolIndex.Controllers
             var fonts = db.Fonts.ToList();
             ViewBag.Fonts = fonts;
 
-            var font = db.Fonts.Find(fontId ?? 1);
-            ViewBag.Symbols = font.Symbols;
+            Font font = fonts.Find(x=>x.Id == fontId);
+            ViewBag.Symbols = null;
             ViewBag.FontCurrent = font;
             return View();
         }
@@ -51,19 +51,38 @@ namespace SymbolIndex.Controllers
             ViewBag.Symbols = symbols;
             return View();
         }
-
-        public ActionResult About()
+        
+        public ActionResult _FontStyle(int? fontId = 3)
         {
-            ViewBag.Message = "Your application description page.";
+            var font = db.Fonts.Find(fontId);
+            ViewBag.FontCurrent = font;
 
-            return View();
+            return PartialView();
         }
 
-        public ActionResult Contact()
+        public ActionResult _Items(int? fontId = 3, string key = null)
         {
-            ViewBag.Message = "Your contact page.";
+            var font = db.Fonts.Find(fontId);
+            ViewBag.FontCurrent = font;
 
-            return View();
+            if(string.IsNullOrEmpty(key))
+            {
+                ViewBag.Symbols = font.Symbols.ToList();                
+            }
+            else
+            {
+                List<Tag> tagsSearched = db.Tags.Where(x => x.TagString.Contains(key)).ToList();
+                List<Symbol> symbols = new List<Symbol>();
+                foreach (Tag tag in tagsSearched)
+                {
+                    symbols.AddRange(tag.Symbols);
+                }
+                symbols = symbols.Distinct().ToList();
+                symbols.RemoveAll(x => x.FontId != fontId);
+
+                ViewBag.Symbols = symbols;
+            }
+            return PartialView();
         }
 
         //[HttpPost]

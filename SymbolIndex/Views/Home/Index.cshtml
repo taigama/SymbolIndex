@@ -21,61 +21,10 @@
     <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Assets/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="~/Assets/css/mycss.css">
-    <link rel="stylesheet" href="~/Content/bootstrap-select.min.css">
+    @*<link rel="stylesheet" href="~/Content/bootstrap-select.min.css">*@
+    <link rel="stylesheet" href="~/Assets/css/spinner.css">
 
     @Html.Partial("_FontStyle")
-    <style id="styleFont">
-        .blink_me {
-            border:dashed;
-            border-width: 3px;
-            border-color: chartreuse;
-            animation: blinker 1s step-start infinite;
-            padding-right: 5px;
-        }
-
-        @@keyframes blinker {
-            25% {
-            border-color: red;
-            }
-            50% {
-            border-color: cyan;
-            }
-            75% {
-            border-color: hotpink;
-            }
-        }
-
-        /* Tooltip container */
-        .mtooltip {
-            position: relative;
-            display: inline-block;
-            border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-        }
-
-        /* Tooltip text */
-        .mtooltip .mtooltiptext {
-            visibility: hidden;
-            width: 340px;
-            opacity: 0.75;
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            padding: 5px 0;
-            border-radius: 6px;
-
-            /* Position the tooltip text - see examples below! */
-            position: absolute;
-            z-index: 1;
-            top: 150%;
-            left: 50%;
-            margin-left: -170px;
-        }
-
-        /* Show the tooltip text when you mouse over the tooltip container */
-        .mtooltip:hover .mtooltiptext {
-            visibility: visible;
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-custom navbar-dark bg-dark fixed-top">
@@ -98,12 +47,12 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <text style="color:#00ffff">Font: </text> @fontCurrent.FontName
+                            <text style="color:#00ffff">Font: </text><text id="font_current_name">@fontCurrent.FontName</text>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             @foreach (var font in fonts)
                             {
-                                <a class="dropdown-item" href="?fontId=@font.Id">@font.FontName</a>
+                                <a class="dropdown-item" href="#" onclick="changeFont(event, @font.Id)">@font.FontName</a>
                             }
                         </div>
                     </li>
@@ -126,7 +75,7 @@
                             @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "frmSearch" }))
                             {
                                 <input name="fontId" type="number" hidden value="@fontCurrent.Id" />
-                                <input name="key" type="text" class="search-bar" placeholder="Search..">
+                                <input name="key" type="text" class="search-bar" placeholder="lookup symbols...">
                                 <input type="submit" style="display:none" />
                                 <i class="fa fa-search hoverx" style="color: black;" onclick="$('#frmSearch').submit()"></i>
                             }
@@ -140,7 +89,7 @@
     </nav>
 
 
-    <div id="font_id" class="hidden">@fontCurrent.Id</div>
+    
     <div id="items" class="container" style="margin-top: 50px">
         @Html.Partial("_Items")        
     </div>
@@ -223,6 +172,12 @@
         </div>
     </div>
 
+    <div id="modal_load" class="mymodal">
+        <div id="status" class="panel-body" align="center">
+            <i class="fas fa-asterisk spinner"></i>
+        </div>
+    </div>
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="~/Assets/js/jquery-3.3.1.min.js"></script>
@@ -232,6 +187,14 @@
     <script src="~/Scripts/clipboard-polyfill.js"></script>
     @*<script src="~/Assets/js/punycode.min.js"></script>*@
 
+    <script type="text/javascript">
+        function changeFont(event, id) {
+            event.preventDefault;
+
+            // TODO: reload style, items.
+
+        }
+    </script>
     <script type="text/javascript">
         function copyText(id) {
             var dt = new clipboard.DT();
@@ -245,114 +208,10 @@
 
             //alert('We cannot access your clipboard/rtf.\nPlease manual change the font of symbol (in Word) to match the website font')
         }
-        function showSnackbar() {
-            // Get the snackbar DIV
-            var x = document.getElementById("snackbar")
-
-            // Add the "show" class to DIV
-            x.className = "show";
-
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
-        }
-    </script>
-    <script type="text/javascript">
         
-
-        function feedback() {
-            $('#modal_feedback').modal('hide');
-            var content = getFeedback();
-
-            $.ajax({
-                url: '/Home/Feedback/',
-                type: "GET",
-                data: { 'content': content},
-                dataType: 'json',
-                success: function (result) {
-                    alert(result.text);
-                },
-                error: function (err) {
-                    showError(err);
-                    alert(err.statusText);
-                }
-            });
-        }
-
-        function getDataRadio() {
-
-            var radios = document.getElementsByName('feed_func_item');
-            for (var i = 0, length = radios.length; i < length; i++) {
-                if (radios[i].checked) {
-                    if (radios[i].value == "Khác") {
-                        return $('#feed_func_orther').val();
-                    }
-                    else {
-                        return radios[i].value;
-                    }
-                }
-            }
-
-            return "";
-        }
-
-        function focusRadio(index) {
-            var radios = document.getElementsByName('feed_func_item');
-            if (index >= radios.length)
-                return;
-            radios[index].checked = true;
-        }
-
-        function getFeedback() {
-            var str = "";
-
-            var name = $('#feed_name').val();
-            var email = $('#feed_email').val();
-            if (name || email) {
-                if (name) {
-                    str += '- Name: ' + name + '\n';
-                }
-                if (email) {
-                    str += '- Email: ' + email + '\n';
-                }
-                str += '\n';
-            }
-            
-
-            var color_navi = $('#feed_color_navi').val();
-            var color_body = $('#feed_color_body').val();
-            var color_item = $('#feed_color_item').val();
-            if (color_navi || color_body || color_item) {
-                str += '- Color------\n';
-                if (color_navi) {
-                    str += '--- navigate bar: ' + color_navi + '\n';
-                }
-                if (color_body) {
-                    str += '--- body: ' + color_body + '\n';
-                }
-                if (color_item) {
-                    str += '--- item: ' + color_item + '\n';
-                }
-                str += '\n';
-            }
-
-            var radio = getDataRadio();
-            if (radio) {
-                str += '- Function------\n' +
-                    '--- item click: ' + radio + '\n\n';
-            }            
-            
-            if ($('#feed_overall').val()) {
-                str += '- Overall------\n' + $('#feed_overall').val();
-            }
-
-            return str;
-        }
-
-        function showError(err) {
-            var win = window.open("", "MsgWindow", "width=1366,height=768");
-            win.document.write(err.responseText);
-            win.focus();
-        }
+    </script>
+        
+    <script src="~/Assets/js/home.js"></script>
 
         @*function parseItem(symbol) {
             var str = '<div class="symbol-container">\
@@ -383,7 +242,6 @@ for (int i = 1; i < symbol.Tags.Count; i++)\
         function representTags(tags) {
             if (tag.length)
         }*@
-    </script>
 </body>
 </html>
 

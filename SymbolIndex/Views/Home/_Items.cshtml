@@ -2,30 +2,36 @@
     IList<SymbolIndex.Models.Symbol> symbols = ViewBag.Symbols;
     SymbolIndex.Models.Font fontCurrent = ViewBag.FontCurrent;
 }
+<div id="font_id" class="hidden">@fontCurrent.Id</div>
+<div id="font_name" class="hidden">@fontCurrent.FontName</div>
 <div class="row row-padding-top">
-    @foreach (var symbol in symbols)
+    @{ if (symbols != null)
+        {
+            foreach (var symbol in symbols)
 
-    {
-        <div class="symbol-container">
-            <div class="symbol-area">
-                <div id="symbol_@symbol.Id" class="symbol myFont hoverx" onclick="copyText('symbol_@symbol.Id')">
-                    <font id="symbol_@(symbol.Id)_sub" size="8" face="@fontCurrent.FontName">@symbol.Content</font>
-                </div>
+            {
+                <div class="symbol-container">
+                    <div class="symbol-area">
+                        <div id="symbol_@symbol.Id" class="symbol myFont hoverx" onclick="copyText('symbol_@symbol.Id')">
+                            <font id="symbol_@(symbol.Id)_sub" size="8" face="@fontCurrent.FontName">@symbol.Content</font>
+                        </div>
 
-                <div class="key">
-                    @if (symbol.Tags != null && symbol.Tags.Count > 0)
-                    {
-                        <text>@symbol.Tags.ElementAt(0).TagString</text>
-                    }
-                    @if (symbol.Tags.Count > 1)
-                    {
-                        for (int i = 1; i < symbol.Tags.Count; i++)
-                        {
-                            <text>, @(symbol.Tags[i].TagString)</text>
-                        }
-                    }
+                        <div class="key">
+                            @if (symbol.Tags != null && symbol.Tags.Count > 0)
+                            {
+                                <text>@symbol.Tags.ElementAt(0).TagString</text>
+                            }
+                            @if (symbol.Tags.Count > 1)
+                            {
+                                for (int i = 1; i < symbol.Tags.Count; i++)
+                                {
+                                    <text>, @(symbol.Tags[i].TagString)</text>
+                                }
+                            }
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            }
+        }
     }
 </div>

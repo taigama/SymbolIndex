@@ -2,6 +2,11 @@ body{
     background-color: #EEE
 }
 
+.hidden{
+    display:none;
+}
+
+/* ----------- NAV -------------- */
 .navbar-icon {
     height: 30px;
     width: auto;
@@ -26,6 +31,12 @@ body{
 .navbar-padding>li {
     padding-right: 10px;
     padding-left: 10px;
+}
+
+
+/* ---------------- ITEMS ------------------ */
+#items {
+    height: 100vh;
 }
 
 .symbol-container {
@@ -100,6 +111,56 @@ body{
 
 .hoverx:hover {
     cursor:pointer;
+}
+
+/* Tooltip container */
+.mtooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.mtooltip .mtooltiptext {
+    visibility: hidden;
+    width: 340px;
+    opacity: 0.75;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -170px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.mtooltip:hover .mtooltiptext {
+    visibility: visible;
+}
+
+.mymodal {
+    display:block;
+    width: 340px;
+    opacity: 0;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 2;
+    top: 80px;
+    left: 50%;
+    margin-left: -170px;
+}
+.mymodal.show{
+    opacity: 0.75;
 }
 
 @media (min-width: 800px) {
@@ -223,5 +284,29 @@ However, delay the fade out process for 2.5 seconds */
     to {
         bottom: 0;
         opacity: 0;
+    }
+}
+
+
+/* ---------------- BLINK ------------------- */
+.blink_me {
+    border: dashed;
+    border-width: 3px;
+    border-color: chartreuse;
+    animation: blinker 1s step-start infinite;
+    padding-right: 5px;
+}
+
+@keyframes blinker {
+    25% {
+        border-color: red;
+    }
+
+    50% {
+        border-color: cyan;
+    }
+
+    75% {
+        border-color: hotpink;
     }
 }
