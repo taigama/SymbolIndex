@@ -144,9 +144,9 @@ body{
 }
 
 .mymodal {
-    display:block;
+    opacity: 0.75;
+    display: none;
     width: 340px;
-    opacity: 0;
     background-color: #000;
     color: #fff;
     text-align: center;
@@ -159,8 +159,25 @@ body{
     left: 50%;
     margin-left: -170px;
 }
-.mymodal.show{
-    opacity: 0.75;
+
+.mymodal.show {
+    display: block;
+}
+
+.mymodal-outer {
+    opacity: 0.2;
+    display: none;
+    background-color: #000;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.mymodal-outer.show {
+    display: block;
 }
 
 @media (min-width: 800px) {

@@ -15,8 +15,8 @@ function changeFont(event, id) {
             alert(err.statusText);
         }
     });
-
     displaySymbols(id);
+    $('#key').val('');
 }
 
 // coppy text
@@ -29,10 +29,12 @@ function copyText(id) {
 
 // modal load
 function showLoading() {
+    $('.mymodal-outer').addClass('show');
     $('.mymodal').addClass('show');
 }
 
 function hideLoading() {
+    $('.mymodal-outer').removeClass('show');
     $('.mymodal').removeClass('show');
 }
 
@@ -61,7 +63,45 @@ var displaySymbols = function (id) {
 displaySymbols($('#font_id').html());
 
 
+//  search
+function onKeypressSearch(e) {
+    var keynum;
 
+    if (window.event) { // IE
+        keynum = e.keyCode;
+    } else if (e.which) { // Netscape/Firefox/Opera
+        keynum = e.which;
+    }
+
+    // phím enter
+    if (keynum == 13) {
+        onSearch();
+    }
+}
+
+// just like displaySymbols
+function onSearch() {
+    showLoading();
+
+    var id = $('#font_id').html();
+    var key = $('#key').val();
+
+    $.ajax({
+        url: "/Home/_Items?fontId=" + id + "&key=" + key,
+        type: "GET",
+        dataType: 'html',
+        traditional: true,
+        success: function (data) {
+            $('#items').html(data);
+            hideLoading();
+        },
+        error: function (err) {
+            showError(err);
+            alert(err.statusText);
+            hideLoading();
+        }
+    });
+}
 
 // snack bar
 
