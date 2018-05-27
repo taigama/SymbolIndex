@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Login</h2>
+<text style="color:red;font-weight:bold">@(ViewData["msg"]??"")</text>
+@using (Html.BeginForm())
+{
+    <input name="username" type="text" placeholder="user name" />
+    <input name="password" type="password" placeholder="password" />
+    <input type="submit" value="Login" />
+}

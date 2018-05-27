@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /docs.lnk
 /SymbolIndex/ConnectionStrings.config
+SymbolIndex/Models/Verifier.cs

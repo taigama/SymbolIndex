@@ -17,20 +17,60 @@ namespace SymbolIndex.Controllers
 
         #region Views
 
+        [HttpGet]
+        public ActionResult Login(string url)
+        {
+            if(Verifier.CheckLogin(Request))
+            {
+                return Redirect(url);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string url, string username, string password)
+        {
+            if(Verifier.Login(username, password, Response))
+            {
+                return Redirect(url);
+            }
+            else
+            {
+                ViewData["msg"] = "Login failed!";
+                return View();
+            }
+
+        }
+
         public ActionResult Index()
         {
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
             return View(db.Feeds.ToList());
         }
 
 
         public ActionResult FontList()
         {
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
             return View(db.Fonts.ToList());
         }
 
         [HttpGet]
         public ActionResult ViewFont(int Id = 4)
         {
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
             var font = db.Fonts.Find(Id);
             if(font == null)
             {
@@ -50,6 +90,11 @@ namespace SymbolIndex.Controllers
         [HttpPost]
         public ActionResult AddSymbols(int fontId, List<string> symbolsInXUTF)
         {
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
             var font = db.Fonts.Find(fontId);
             if (font == null)
             {
@@ -78,6 +123,11 @@ namespace SymbolIndex.Controllers
         [HttpPost]
         public ActionResult ClearFontSymbols(int fontId)
         {
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
             var font = db.Fonts.Find(fontId);
             if (font == null)
             {
@@ -103,6 +153,11 @@ namespace SymbolIndex.Controllers
         [HttpPost]
         public ActionResult CommitTags(int fontId, [ModelBinder(typeof(ViewSymbolsBinder))] List<SymbolView> viewSymbols)
         {
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
             var font = db.Fonts.Find(fontId);
             if (font == null)
             {
@@ -168,6 +223,11 @@ namespace SymbolIndex.Controllers
         [HttpPost]
         public ActionResult DeleteSymbol(int? Id)
         {
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
             if (Id == null)
             {
                 return HttpNotFound("symbol id can not be null");
@@ -195,6 +255,11 @@ namespace SymbolIndex.Controllers
         [HttpPost]
         public ActionResult UploadFont()
         {
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
             // Checking no of files injected in Request object  
             if (Request.Files.Count > 0)
             {
@@ -257,7 +322,12 @@ namespace SymbolIndex.Controllers
         [HttpPost]
         public ActionResult DeleteFont(int? id)
         {
-            if(id == null)
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
+            if (id == null)
             {
                 Response.StatusCode = 400;
                 Response.StatusDescription = "must submit id!";
