@@ -327,3 +327,55 @@ However, delay the fade out process for 2.5 seconds */
         border-color: hotpink;
     }
 }
+
+.popup {
+    border-width: 1px;
+    border-color: #111;
+    border-style: dashed;
+    display: none;
+    top: 200px;
+    left: 150px;
+    width: 315px;
+    height: 230px;
+    padding: 10px;
+    background-color: white;
+    z-index: 1;
+    position: absolute;
+    border-radius: 6px;
+}
+
+.popup.show{
+    display: inline-block;
+}
+
+.canvas-symbol {
+    border-radius: 6px;
+    background-color: #000;
+    width: 135px;
+    height: 135px;
+    display: inline-block;
+    float: left;
+}
+
+.area-btn {
+    width: 150px;
+    height: 135px;
+    display: inline-block;
+    float: right;
+}
+
+.btn-symbol {
+    margin-top: 5px;
+    display: inline-block;
+    width: 100%;
+}
+
+.dialog-tags {
+    margin: 0 2px 0 2px;
+    width: 100%;
+    font-weight: 600;
+    font-size: 13px;
+    position: relative;
+    top: 20px;
+    float: left;
+}
