@@ -84,7 +84,8 @@
 
     
     <div id="items" class="container" style="margin-top: 50px">
-        <div id="font_id" class="hidden">@fontCurrent.Id</div>      
+        <div id="font_id" class="hidden">@fontCurrent.Id</div>
+        <div id="font_name" class="hidden">@fontCurrent.FontName</div>
     </div>
 
     <!-- The actual snackbar -->
@@ -133,19 +134,13 @@
                     </div>
                     <br />Bạn có góp ý gì về chức năng không?
                     <div style="border:dashed;border-width:1px;padding:5px;margin-bottom:3px">
-                        Khi click vào symbol trên web<br />
+                        Khi click vào symbol trên web, hiện dialog<br />
                         <form>
-                            <input type="radio" name="feed_func_item"
-                                   value="Như cũ"/>
-                            <text class="hoverx" onclick="focusRadio(0)">Như hiện tại, click vào là copy ngay</text><br />
-                            <input type="radio" name="feed_func_item"
-                                   value="Mở info"/>
-                            <text class="hoverx" onclick="focusRadio(1)">Hiện ra bảng thông tin, cho phép copy ký tự, hoặc copy hình, hoặc hiển thị thông tin chi tiết</text><br />
                             <input type="radio" name="feed_func_item"
                                    value="Khác"/>
                             <input id="feed_func_orther" type="text"
-                                   placeholder="Khác" style="width:90%"
-                                   onclick="focusRadio(2)"/>
+                                   placeholder="..." style="width:90%"
+                                   onclick="focusRadio(0)"/>
                         </form>
                     </div>
                     <br />Khác<br />
@@ -174,14 +169,14 @@
     </div>
 
     <div id="dialog-item" class="popup">
-        <div id="canvas-symbol" class="canvas-symbol"></div>
+        <canvas id="canvas-symbol" class="canvas-symbol" onclick="getImage()">Sorry, your browser doesn't has canvas</canvas>
         <div class="area-btn">
-            <button class="btn btn-danger btn-sm float-right" style="margin-bottom:17px">X</button>
-            <button class="btn btn-info btn-symbol">Copy as Image</button>
-            <button class="btn btn-info btn-symbol">Copy as Character</button>
+            <button class="btn btn-danger btn-sm float-right" style="margin-bottom:17px" onclick="closeDialog()">X</button>
+            <button class="btn btn-info btn-symbol" onclick="copyText()">Copy as character</button>
+            <button class="btn btn-info btn-symbol" onclick="getImage()">Download image</button>
         </div>        
         <hr style="position:relative;top:130px" />
-        <div class="dialog-tags">Tags: </div>
+        <div id="dialog-tags" class="dialog-tags">Tags: </div>
     </div>
     
     <!-- Optional JavaScript -->

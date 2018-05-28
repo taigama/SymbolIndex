@@ -14,21 +14,38 @@ namespace SymbolIndex.Controllers
         SIContext db = new SIContext();
 
         [HttpGet]
-        public ActionResult Index(int? fontId = 3)
+        public ActionResult Index(int? fontId)
         {
+            if(fontId == null)
+            {
+                fontId = CheckCookie(this)??3;
+            }
+
             var fonts = db.Fonts.ToList();
             ViewBag.Fonts = fonts;
 
             Font font = fonts.Find(x=>x.Id == fontId);
             ViewBag.Symbols = null;
             ViewBag.FontCurrent = font;
+
+            SetCookie(this, fontId.Value, 30);
+
             return View();
         }
+
+
         
-        public ActionResult _FontStyle(int? fontId = 3)
+        public ActionResult _FontStyle(int? fontId)
         {
+            if (fontId == null)
+            {
+                fontId = CheckCookie(this) ?? 3;
+            }
+
             var font = db.Fonts.Find(fontId);
             ViewBag.FontCurrent = font;
+
+            SetCookie(this, fontId.Value, 30);
 
             return PartialView();
         }
@@ -83,6 +100,36 @@ namespace SymbolIndex.Controllers
                     " Chúng tôi sẽ cải thiện website tốt hơn dựa trên phản hồi từ bạn. ^^"
                 },
                 JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Set cookie stored the last accessed fontId
+        /// </summary>
+        /// <param name="controller">context</param>
+        /// <param name="fontId">the fontId will be stored into cookie</param>
+        /// <param name="timeLife">the life-time of the cookie in days</param>
+        private void SetCookie(Controller controller, int fontId, int timeLife)
+        {
+            controller.Response.Cookies.Add(new HttpCookie("fontId", fontId.ToString()));
+            controller.Response.Cookies["fontId"].Expires = DateTime.Now.AddDays(30);
+        }
+
+        /// <summary>
+        /// Get the cookie
+        /// </summary>
+        private int? CheckCookie(Controller controller)
+        {
+            var cookieFontId = controller.Request.Cookies["fontId"];
+            if (cookieFontId == null)
+                return null;
+            try
+            {
+                return int.Parse(cookieFontId.Value);
+            }
+            catch (Exception)
+            {
+                return null;
+            }            
         }
     }
 }

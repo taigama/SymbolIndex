@@ -9,6 +9,7 @@ function changeFont(event, id) {
         traditional: true,
         success: function (data) {
             $('#font_style').replaceWith(data);
+            changeFontCanvas();
         },
         error: function (err) {
             showError(err);
@@ -19,16 +20,98 @@ function changeFont(event, id) {
     $('#key').val('');
 }
 
-// coppy text
-function copyText(id) {
+// ----------- show info-dialog -------------
+var dialog = $('#dialog-item');
+var canvasDom = $('#canvas-symbol')[0];
+var canvas = canvasDom.getContext('2d');
+var posDialog, xDialog, yDialog;
+var widthDialog = dialog.width();
+var heightDialog = dialog.height();
+var item, rectItem;
+var widthView, heightView;
+
+function calculatePositionDialog(item) {
+    calculateViewSize();
+
+    rectItem = item[0].parentElement.parentElement.getBoundingClientRect();
+    xDialog = rectItem.right;
+    if ((xDialog + widthDialog) > widthView) {
+        xDialog = rectItem.left - widthDialog - 22;
+    }
+    yDialog = rectItem.top;
+    if ((yDialog + heightDialog) > heightView) {
+        yDialog = rectItem.bottom - heightDialog - 51;
+    }
+    return [xDialog, yDialog];
+}
+
+function drawSymbolToDialog(item) {
+    changeFontCanvas();// may be the font was not loaded, make sure the browser loaded the font
+    canvas.clearRect(0, 0, 300, 300);
+    canvas.fillText(item.html(), 150, 160);
+}
+
+// show the symbol-info dialog, for downloading img or copying character
+function showDialog(id) {
+    item = $('#' + id);
+    posDialog = calculatePositionDialog(item);
+    dialog.css({ top: posDialog[1], left: posDialog[0] });
+
+    drawSymbolToDialog(item);
+    $('#dialog-tags').html('Tags: ' + $('#' + id + '_tags').html());
+
+    dialog.addClass('show');
+}
+
+function closeDialog() {
+    dialog.removeClass('show');
+}
+
+function calculateViewSize() {
+    widthView = $(window).width();
+    heightView = $(window).height();
+}
+
+// change the font of the canvas, happend when you changed font
+function changeFontCanvas() {
+    canvas.font = '250px "' + $('#font_name').html() + '"';
+}
+canvasDom.width = 300;
+canvasDom.height = 300;
+canvas.textAlign = "center";
+canvas.textBaseline = "middle";
+canvas.fillStyle = '#000';
+changeFontCanvas();
+
+
+// ------------ copy ----------------
+function copyText() {
     var dt = new clipboard.DT();
-    dt.setData("text/plain", $('#' + id + '_sub').html());
+    dt.setData("text/plain", item.html());
     clipboard.write(dt);
     showSnackbar();
 }
 
+//stackoverflow.com/questions/11620698/how-to-trigger-a-file-download-when-clicking-an-html-button-or-javascript
+function getImage() {
+    var url = canvasDom.toDataURL("image/png");
+    var nameFile = $('#dialog-tags').html().replace(/\s\s+/g, '').replace('Tags:', '').replace(/ /g, '');
+    if (!nameFile) {
+        nameFile = 'no-tag-symbol';
+    }
+    nameFile += '_' + $('#font_current_name').html().replace(/ /g, '-') + '.png';
+    var a = document.createElement('a')
+    a.href = url;
+    a.download = nameFile;
+    a.click();
+    $(a).replaceWith('');
+}
+
+// ----------------------------------------------
+
 // modal load
 function showLoading() {
+    closeDialog();
     $('.mymodal-outer').addClass('show');
     $('.mymodal').addClass('show');
 }
@@ -59,7 +142,6 @@ var displaySymbols = function (id) {
         }
     });
 }
-
 displaySymbols($('#font_id').html());
 
 
