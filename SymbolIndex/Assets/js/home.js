@@ -101,7 +101,7 @@ function linkImage() {
     link.click(downloadImg);
 }
 
-//
+//stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
 function b64toBlob(b64Data, contentType, sliceSize) {
     contentType = contentType || '';
     sliceSize = sliceSize || 512;
@@ -126,6 +126,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
     return blob;
 }
 
+//stackoverflow.com/questions/45197097/cant-save-canvas-as-image-on-edge-browser
 downloadImg = function () {   
 
     var nameFile = $('#dialog-tags').html().replace(/\s\s+/g, '').replace('Tags:', '').replace(/ /g, '');
