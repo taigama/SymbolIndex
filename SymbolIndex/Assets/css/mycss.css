@@ -153,7 +153,7 @@ body{
     padding: 5px 0;
     border-radius: 6px;
     /* Position the tooltip text - see examples below! */
-    position: absolute;
+    position: fixed;
     z-index: 2;
     top: 80px;
     left: 50%;
@@ -170,10 +170,14 @@ body{
     background-color: #000;
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
+}
+
+#about {
+    margin-left: 0px;
 }
 
 .mymodal-outer.show {
@@ -225,6 +229,10 @@ body{
     .navbar-expand-custom .dropup .dropdown-menu {
         top: auto;
         bottom: 100%;
+    }
+
+    #about {
+        margin-left: 20px;
     }
 }
 
@@ -358,7 +366,6 @@ However, delay the fade out process for 2.5 seconds */
     height: 135px;
     display: inline-block;
     float: left;
-    cursor: pointer;
 }
 
 .area-btn {

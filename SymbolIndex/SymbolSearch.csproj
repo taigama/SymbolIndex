@@ -343,6 +343,7 @@
     <Content Include="Scripts\dist\opentype.js.map" />
     <Content Include="Scripts\dist\opentype.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\FileSaver.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.min.js" />
     <Content Include="Scripts\i18n\defaults-bg_BG.js" />
@@ -467,6 +468,7 @@
     <Content Include="Views\Home\_Items.cshtml" />
     <Content Include="Views\Home\_FontStyle.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

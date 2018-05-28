@@ -33,6 +33,10 @@ namespace SymbolIndex.Controllers
             return View();
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
 
         
         public ActionResult _FontStyle(int? fontId)

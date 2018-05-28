@@ -35,16 +35,6 @@
             </button>
             <div id="navbarNavDropdown" class="navbar-collapse collapse">
                 <ul class="navbar-nav mr-auto">
-                    @*<li class="nav-item dropdown">*@
-
-                        @*<select id="ddl_font" name="ddl_font"
-                                    class="selectpicker" data-live-search="true">
-                                @foreach (var font in fonts)
-                                {
-                                    <option value="@font.Id">@font.FontName</option>
-                                }
-                            </select>*@
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <text style="color:#00ffff">Font: </text><text id="font_current_name">@fontCurrent.FontName</text>
@@ -66,6 +56,11 @@
                     <li class="nav-item vcenter">
                         <a class="hoverx" onclick="$('#modal_feedback').modal('show')">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<text style="color:#ffffff"> <b>|Gửi phản hồi|</b> </text>
+                        </a>
+                    </li>
+                    <li class="nav-item vcenter">
+                        <a id="about" class="navbar-brand" href="/Home/About">
+                            About
                         </a>
                     </li>
                 </ul>
@@ -169,57 +164,23 @@
     </div>
 
     <div id="dialog-item" class="popup">
-        <canvas id="canvas-symbol" class="canvas-symbol" onclick="getImage()">Sorry, your browser doesn't has canvas</canvas>
+        <a href="#" class="link-img"><canvas id="canvas-symbol" class="canvas-symbol" >Sorry, your browser doesn't has canvas</canvas></a>
         <div class="area-btn">
             <button class="btn btn-danger btn-sm float-right" style="margin-bottom:17px" onclick="closeDialog()">X</button>
             <button class="btn btn-info btn-symbol" onclick="copyText()">Copy as character</button>
-            <button class="btn btn-info btn-symbol" onclick="getImage()">Download image</button>
-        </div>        
+            <a href="#" class="btn btn-info btn-symbol link-img" style="color:white">Download image</a>
+        </div>
         <hr style="position:relative;top:130px" />
         <div id="dialog-tags" class="dialog-tags">Tags: </div>
     </div>
     
-    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="~/Assets/js/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/umd/popper.min.js"></script>
     <script src="~/Assets/js/bootstrap.min.js"></script>
-    <script src="~/Scripts/bootstrap-select.min.js"></script>
     <script src="~/Scripts/clipboard-polyfill.js"></script>
-    @*<script src="~/Assets/js/punycode.min.js"></script>*@
-
-        
+    <script src="~/Scripts/FileSaver.js"></script>
     <script src="~/Assets/js/home.js"></script>
 
-        @*function parseItem(symbol) {
-            var str = '<div class="symbol-container">\
-    <div class="symbol-area">\
-        <div id="symbol_' + symbol.Id + '" class="symbol myFont hoverx" onclick="' + "copyText('symbol_" + symbol.Id + "')" + '">\
-            <font id="symbol_' + symbol.Id + '_sub" size="8" face="@fontCurrent.FontName">' + symbol.Content + '</font>\
-        </div>\
-\
-        <div class="key">';
-            if (symbol.Tags)
-
-            @if (symbol.Tags != null && symbol.Tags.Count > 0)\
-            {\
-<text>@symbol.Tags.ElementAt(0).TagString</text>\
-            }\
-            @if (symbol.Tags.Count > 1)\
-            {\
-for (int i = 1; i < symbol.Tags.Count; i++)\
-{\
-    <text>, @(symbol.Tags[i].TagString)</text>\
-}\
-            }
-        str += '</div>\
-    </div>\
-</div>'
-        }
-
-        function representTags(tags) {
-            if (tag.length)
-        }*@
 </body>
 </html>
-

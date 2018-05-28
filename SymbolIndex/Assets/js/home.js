@@ -61,6 +61,7 @@ function showDialog(id) {
     $('#dialog-tags').html('Tags: ' + $('#' + id + '_tags').html());
 
     dialog.addClass('show');
+    linkImage();
 }
 
 function closeDialog() {
@@ -92,20 +93,55 @@ function copyText() {
     showSnackbar();
 }
 
+var link = $('.link-img');
+var downloadImg;
 //stackoverflow.com/questions/11620698/how-to-trigger-a-file-download-when-clicking-an-html-button-or-javascript
-function getImage() {
-    var url = canvasDom.toDataURL("image/png");
+function linkImage() {
+    link.unbind("click");
+    link.click(downloadImg);
+}
+
+//
+function b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+}
+
+downloadImg = function () {   
+
     var nameFile = $('#dialog-tags').html().replace(/\s\s+/g, '').replace('Tags:', '').replace(/ /g, '');
     if (!nameFile) {
         nameFile = 'no-tag-symbol';
     }
     nameFile += '_' + $('#font_current_name').html().replace(/ /g, '-') + '.png';
-    var a = document.createElement('a')
-    a.href = url;
-    a.download = nameFile;
-    a.click();
-    $(a).replaceWith('');
+
+    canvasDom.isDrawingMode = false;
+    if (!window.localStorage) { alert("This function is not supported by your browser."); return; }
+
+    var blob = new Blob([b64toBlob(canvasDom.toDataURL('png').replace(/^data:image\/(png|jpg);base64,/, ""), "image/png")], { type: "image/png" });
+    saveAs(blob, nameFile);
+    canvasDom.isDrawingMode = true;
 }
+
 
 // ----------------------------------------------
 
