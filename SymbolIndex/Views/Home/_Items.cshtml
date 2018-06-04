@@ -10,9 +10,9 @@
             foreach (var symbol in symbols)
 
             {
-                <div class="symbol-container">
-                    <div class="symbol-area">
-                        <div class="symbol myFont hoverx" onclick="showDialog('@symbol.Id')">
+                <div class="symbol-container" onclick="closeDialog()">
+                    <div class="symbol-area hoverx" onclick="showDialog('@symbol.Id', event)">
+                        <div class="symbol myFont">
                             <font id="@symbol.Id" size="8" face="@fontCurrent.FontName">@symbol.Content</font>
                         </div>
 

@@ -46,19 +46,19 @@
                             }
                         </div>
                     </li>
-                    <li class="nav-item vcenter blink_me">
+                    <li class="nav-item vcenter blink_me" style="min-width:160px">
                         <a class="mtooltip" href="@fontCurrent.FontUrl">
                             <img class="navbar-icon" src="~/Assets/image/download.ico">
                             <text style="color:#00ffff"> Download font</text>
                             <span class="mtooltiptext">Download the font to use the below symbols (some fonts are already stored in your system, e.g. Wingdings)</span>
                         </a>
                     </li>
-                    <li class="nav-item vcenter">
-                        <a class="hoverx" onclick="$('#modal_feedback').modal('show')">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<text style="color:#ffffff"> <b>|Gửi phản hồi|</b> </text>
+                    <li class="nav-item vcenter" style="min-width:130px">
+                        <a id="response" class="hoverx" onclick="$('#modal_feedback').modal('show')">
+                            <text style="color:#ffffff;margin-left:15px"><b>|Gửi phản hồi|</b> </text>
                         </a>
                     </li>
-                    <li class="nav-item vcenter">
+                    <li class="nav-item vcenter" style="min-width:90px">
                         <a id="about" class="navbar-brand" href="/Home/About">
                             About
                         </a>
@@ -68,7 +68,7 @@
                     <li class="nav-item">
                         <div class="search-bar">
                             <input id="key" type="text" class="search-bar" placeholder="lookup symbols..." onkeypress="onKeypressSearch(event)">
-                            <i class="fa fa-search hoverx" style="color: black;" onclick="onSearch()"></i>
+                            <i class="fa fa-search" style="color: black;"><a class="hoverx" onclick="onSearch()"></a></i>
                         </div>
                     </li>
                 </ul>

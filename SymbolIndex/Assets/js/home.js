@@ -52,7 +52,8 @@ function drawSymbolToDialog(item) {
 }
 
 // show the symbol-info dialog, for downloading img or copying character
-function showDialog(id) {
+function showDialog(id, event) {
+    event.stopPropagation();
     item = $('#' + id);
     posDialog = calculatePositionDialog(item);
     dialog.css({ top: posDialog[1], left: posDialog[0] });
