@@ -53,9 +53,9 @@
                             <span class="mtooltiptext">Download the font to use the below symbols (some fonts are already stored in your system, e.g. Wingdings)</span>
                         </a>
                     </li>
-                    <li class="nav-item vcenter" style="min-width:130px">
-                        <a id="response" class="hoverx" onclick="$('#modal_feedback').modal('show')">
-                            <text style="color:#ffffff;margin-left:15px"><b>|Gửi phản hồi|</b> </text>
+                    <li class="nav-item vcenter" style="min-width:100px">
+                        <a id="response" class="hoverx navbar-brand" onclick="openFeedback(event)" href="#">
+                            Feedback
                         </a>
                     </li>
                     <li class="nav-item vcenter" style="min-width:90px">
@@ -86,12 +86,12 @@
     <!-- The actual snackbar -->
     <div id="snackbar">Copied.</div>
 
-    <div id="modal_feedback"
+    <div id="modal-feedback"
          class="modal fade">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
                 <div class="panel" style="padding:10px">
-                    Chào mừng bạn đến với trang phản hồi
+                    (Vietnamese) Chào mừng bạn đến với trang phản hồi
                     <hr style="margin-top:1px"/>
                     Bạn là 
                     <input

@@ -247,8 +247,13 @@ function showSnackbar() {
 
 
 // feedback
+function openFeedback(event) {
+    event.preventDefault;
+    $('#modal-feedback').modal('show');
+}
+
 function feedback() {
-    $('#modal_feedback').modal('hide');
+    $('#modal-feedback').modal('hide');
     var content = getFeedback();
 
     $.ajax({

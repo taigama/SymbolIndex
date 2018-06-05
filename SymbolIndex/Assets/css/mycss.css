@@ -177,7 +177,14 @@ body{
 }
 
 #about {
-    margin-left: 0px;
+    margin-left: 0;
+    padding-top: 0;
+}
+
+#response {
+    margin-right: 0;
+    margin-left: 0;
+    padding-bottom: 0;
 }
 
 .mymodal-outer.show {
@@ -231,8 +238,14 @@ body{
         bottom: 100%;
     }
 
+    #response {
+        margin-left: 11px;
+        padding-bottom: 5px;
+    }
+
     #about {
         margin-left: 11px;
+        padding-top: 5px;
     }
 }
 
