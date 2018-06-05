@@ -29,6 +29,7 @@ var widthDialog = dialog.width();
 var heightDialog = dialog.height();
 var item, rectItem;
 var widthView, heightView;
+var color = '#000';
 
 function calculatePositionDialog(item) {
     calculateViewSize();
@@ -48,8 +49,15 @@ function calculatePositionDialog(item) {
 function drawSymbolToDialog(item) {
     changeFontCanvas();// may be the font was not loaded, make sure the browser loaded the font
     canvas.clearRect(0, 0, 300, 300);
+    canvas.fillStyle = color;
     canvas.fillText(item.html(), 150, 160);
 }
+
+function onChangeColor() {
+    color = '#' + $('#color-picker').val();
+    drawSymbolToDialog(item);
+}
+$('#color-picker').change(onChangeColor);
 
 // show the symbol-info dialog, for downloading img or copying character
 function showDialog(id, event) {
@@ -82,7 +90,6 @@ canvasDom.width = 300;
 canvasDom.height = 300;
 canvas.textAlign = "center";
 canvas.textBaseline = "middle";
-canvas.fillStyle = '#000';
 changeFontCanvas();
 
 
@@ -141,7 +148,7 @@ downloadImg = function () {
 
     var blob = new Blob([b64toBlob(canvasDom.toDataURL('png').replace(/^data:image\/(png|jpg);base64,/, ""), "image/png")], { type: "image/png" });
     saveAs(blob, nameFile);
-    canvasDom.isDrawingMode = true;
+    //canvasDom.isDrawingMode = true;
 }
 
 

@@ -357,7 +357,7 @@ However, delay the fade out process for 2.5 seconds */
     top: 200px;
     left: 150px;
     width: 315px;
-    height: 230px;
+    height: 250px;
     padding: 10px;
     background-color: white;
     z-index: 1;
@@ -400,7 +400,7 @@ However, delay the fade out process for 2.5 seconds */
     font-weight: 600;
     font-size: 13px;
     position: relative;
-    top: 20px;
+    margin-top: 10px;
     float: left;
 }
 .fa>a.hoverx {
@@ -410,4 +410,10 @@ However, delay the fade out process for 2.5 seconds */
     left: 0;
     width: 30px;
     height: 40px;
+}
+
+.jscolor {
+    width: 84px;
+    border-radius: 5px;
+    padding: 0px 4px;
 }

@@ -77,7 +77,7 @@
     </nav>
 
 
-    
+
     <div id="items" class="container" style="margin-top: 50px">
         <div id="font_id" class="hidden">@fontCurrent.Id</div>
         <div id="font_name" class="hidden">@fontCurrent.FontName</div>
@@ -92,23 +92,19 @@
             <div class="modal-content">
                 <div class="panel" style="padding:10px">
                     (Vietnamese) Chào mừng bạn đến với trang phản hồi
-                    <hr style="margin-top:1px"/>
-                    Bạn là 
-                    <input
-                           id="feed_name"
+                    <hr style="margin-top:1px" />
+                    Bạn là
+                    <input id="feed_name"
                            type="text"
-                           placeholder="Có thể bỏ trống" 
-                           style="width:70%"
-                           />
+                           placeholder="Có thể bỏ trống"
+                           style="width:70%" />
                     <br />
                     Email&nbsp;
-                    <input
-                           id="feed_email"
+                    <input id="feed_email"
                            type="text"
-                           placeholder="Có thể bỏ trống" 
-                           style="width:70%"
-                           />
-                    <br />                    
+                           placeholder="Có thể bỏ trống"
+                           style="width:70%" />
+                    <br />
                     <br />Bạn thấy màu sắc của trang web này như thế nào
                     <div style="border:dashed;border-width:1px;padding:5px">
                         Thanh điều hướng<br />
@@ -124,38 +120,37 @@
                         <br />Các thẻ<br />
                         <input id="feed_color_item"
                                type="text"
-                               placeholder="(Ổn), (Nên dùng màu tối (như thế nào đó)), hoặc có góp ý khác" 
-                               style="width:100%"/>
+                               placeholder="(Ổn), (Nên dùng màu tối (như thế nào đó)), hoặc có góp ý khác"
+                               style="width:100%" />
                     </div>
                     <br />Bạn có góp ý gì về chức năng không?
                     <div style="border:dashed;border-width:1px;padding:5px;margin-bottom:3px">
                         Khi click vào symbol trên web, hiện dialog<br />
                         <form>
                             <input type="radio" name="feed_func_item"
-                                   value="Khác"/>
+                                   value="Khác" />
                             <input id="feed_func_orther" type="text"
                                    placeholder="..." style="width:90%"
-                                   onclick="focusRadio(0)"/>
+                                   onclick="focusRadio(0)" />
                         </form>
                     </div>
                     <br />Khác<br />
                     <textarea id="feed_overall"
                               placeholder="(Tổng thể trang web này...&#13;&#10;Theo bạn thì trang web này dùng để làm gì, nó có hữu ích không?&#13;&#10;Góp ý khác...)"
                               rows="3"
-                              style="width:100%"
-                              ></textarea>
+                              style="width:100%"></textarea>
                     <br />
                     <div style="text-align:center">
                         <button class="btn btn-info" onclick="feedback()">Gửi phản hồi</button>
                     </div>
-                    
+
                 </div>
 
             </div>
         </div>
     </div>
 
-    <div class="mymodal-outer">        
+    <div class="mymodal-outer">
     </div>
     <div class="mymodal">
         <div class="panel-body" align="center">
@@ -164,22 +159,30 @@
     </div>
 
     <div id="dialog-item" class="popup">
-        <a href="#" class="link-img"><canvas id="canvas-symbol" class="canvas-symbol" >Sorry, your browser doesn't has canvas</canvas></a>
+        <a href="#" class="link-img"><canvas id="canvas-symbol" class="canvas-symbol">Sorry, your browser doesn't has canvas</canvas></a>
         <div class="area-btn">
             <button class="btn btn-danger btn-sm float-right" style="margin-bottom:17px" onclick="closeDialog()">X</button>
             <button class="btn btn-info btn-symbol" onclick="copyText()">Copy as character</button>
             <a href="#" class="btn btn-info btn-symbol link-img" style="color:white">Download image</a>
         </div>
-        <hr style="position:relative;top:130px" />
+        <hr style="position:relative;margin-top:145px;margin-bottom:10px" />
+        <div>
+            Colors: <input id="color-picker" value="000000" class="jscolor {width:100, padding:0, shadow:true,
+    borderWidth:0, backgroundColor:'transparent', insetColor:'#000'}"> (Image only)
+        </div>
         <div id="dialog-tags" class="dialog-tags">Tags: </div>
     </div>
-    
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="~/Assets/js/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/umd/popper.min.js"></script>
     <script src="~/Assets/js/bootstrap.min.js"></script>
+    <!-- github.com/lgarron/clipboard-polyfill -->
     <script src="~/Scripts/clipboard-polyfill.js"></script>
+    <!-- github.com/eligrey/FileSaver.js -->
     <script src="~/Scripts/FileSaver.js"></script>
+    <!-- jscolor.com -->
+    <script src="~/Assets/js/jscolor.js"></script>
     <script src="~/Assets/js/home.js"></script>
 
 </body>
