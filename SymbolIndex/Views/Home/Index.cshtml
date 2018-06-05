@@ -11,6 +11,7 @@
 }
 
 <head>
+    <meta name="description" content="Quickly lookup any font symbols and get into your doc">
     @Html.Partial("_GG")
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -27,6 +28,24 @@
     @Html.Partial("_FontStyle")
 </head>
 <body>
+    <div class="popup-welcome">
+        <div style="font-size:26px">
+            Welcome to the Symbol Search! <button class="btn btn-sm btn-danger" onclick="closeWelcome()"><b>X</b></button>
+        </div>
+        <div>
+            - <strong>This website: Helping you quick-lookup symbols (of a font)</strong>, quickly get them and put into your doc. <br />
+            - <strong>Download fonts:</strong> To display symbols as characters in your doc, you need to have the font in your system.<br />
+            - <strong>Display symbols in the web:</strong> Listing all symbols of the current font. <b>Note:</b> The first time you browse a font, will take a while for downloading font and displaying symbols (based in your internet speed). Don't worry, the font will be cached in your system (by the browser) and will not be downloaded again.<br />
+            - <strong>Click on a symbol:</strong> Show a dialog for the symbol clicked.<br />
+            - <strong>Copy as character:</strong> Copy the character into your clipboard. In Mac, it's copy the style (format) of the character, in Windows, you may need to format the character in your docs.<br />
+            - <strong>Download image:</strong> Get the symbol as an image and put into your doc, <b>no need to download the font</b>.
+        </div>
+        <hr />
+        <div style="color:grey">
+            - Cookie: We only use cookies for stored your experience, such as last Font you browsed, last Color you used.<br />
+            - Feel free to give us some feedbacks.
+        </div>
+    </div>
     <nav class="navbar navbar-expand-custom navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/Home/Index">SYMBOL SEARCH</a>
@@ -59,7 +78,7 @@
                         </a>
                     </li>
                     <li class="nav-item vcenter" style="min-width:90px">
-                        <a id="about" class="navbar-brand" href="/Home/About">
+                        <a id="about" class="navbar-brand" href="/Home/About" onclick="showAbout(event)">
                             About
                         </a>
                     </li>
@@ -167,11 +186,13 @@
         </div>
         <hr style="position:relative;margin-top:145px;margin-bottom:10px" />
         <div>
-            Colors: <input id="color-picker" value="000000" class="jscolor {width:100, padding:0, shadow:true,
+            Colors: <input id="color-picker" value="F00" class="jscolor {width:100, padding:0, shadow:true,
     borderWidth:0, backgroundColor:'transparent', insetColor:'#000'}"> (Image only)
         </div>
         <div id="dialog-tags" class="dialog-tags">Tags: </div>
     </div>
+
+    
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="~/Assets/js/jquery-3.3.1.min.js"></script>

@@ -29,7 +29,8 @@ var widthDialog = dialog.width();
 var heightDialog = dialog.height();
 var item, rectItem;
 var widthView, heightView;
-var color = '#000';
+var color;
+var callbackLoaded;
 
 function calculatePositionDialog(item) {
     calculateViewSize();
@@ -53,9 +54,18 @@ function drawSymbolToDialog(item) {
     canvas.fillText(item.html(), 150, 160);
 }
 
+function initColor() {
+    color = getCookie('color');
+    if (!color) {
+        color = '#F00';
+    }
+    $('#color-picker').val(color.replace('#', ''));
+}
+
 function onChangeColor() {
     color = '#' + $('#color-picker').val();
     drawSymbolToDialog(item);
+    setCookie("color", color, 30);
 }
 $('#color-picker').change(onChangeColor);
 
@@ -354,3 +364,56 @@ function showError(err) {
     win.document.write(err.responseText);
     win.focus();
 }
+
+// welcome dialog
+function closeWelcome() {
+    callbackLoaded = undefined;
+
+    var popup_welcome = $('.popup-welcome');
+    if (popup_welcome) {
+        popup_welcome.remove();
+    }
+
+    setCookie("first_view", 1, 30);
+}
+
+function checkWelcome() {
+    var cookie = getCookie("first_view");
+    if (cookie) {
+        closeWelcome();
+    }
+}
+
+// about
+function showAbout(event) {
+    event.preventDefault();
+    setCookie("first_view", 1, -1);
+    window.location = "/Home/About"
+}
+
+// cookies
+// I dont remember where I get these cookies function. If you are the author of these scripts, please feedback and send me the link you wrote this function (stackoverflow). I will include your link here (and more info if you want)
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+initColor();
+checkWelcome();
