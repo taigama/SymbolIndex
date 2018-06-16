@@ -435,12 +435,37 @@ However, delay the fade out process for 2.5 seconds */
     min-width: 300px;
     max-width: 500px;
 }
+.popup-welcome>.header {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
 .popup-welcome>div {
-    color: black;
-    -webkit-text-stroke-width: 0.1px;
-    -webkit-text-stroke-color: #888;
-    font-weight: 400;
+    color: #222;
 }
 .popup-welcome>div>.btn-danger {
     float: right;
+}
+.nav-tabs {
+    border: none;
+    margin-bottom: 15px;
+}
+.nav.nav-tabs > li > a {
+    border: 1px #FFF solid;
+    border-radius: 3px;
+    padding: 2px 8px;
+    border-bottom-color: #888;
+}
+.nav.nav-tabs>li>.active.show {
+    border-color: #888;
+    border-bottom-color: #FFF;
+}
+.nav.nav-tabs > li > a:hover {
+    border-color: #888;
+    text-decoration: none;
+}
+
+.tab-pane>.btn {
+    float: right;
+    width: 60px;
 }

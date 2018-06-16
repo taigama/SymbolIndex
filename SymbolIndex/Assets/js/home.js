@@ -106,7 +106,13 @@ changeFontCanvas();
 // ------------ copy ----------------
 function copyText() {
     var dt = new clipboard.DT();
-    dt.setData("text/plain", item.html());
+    var data = '<div style="font-family:' +
+        "'" + $('#font_name').text() + "'" +
+        '"><font size="8" face="' +
+        $('#font_name').text() + '">' +
+        he.encode(item.text()) +
+        '</font></div>';
+    dt.setData("text/html", data);
     clipboard.write(dt);
     showSnackbar();
 }
@@ -381,7 +387,10 @@ function checkWelcome() {
     var cookie = getCookie("first_view");
     if (cookie) {
         closeWelcome();
+        return;
     }
+
+    $('.nav.nav-tabs>.active>a').click();
 }
 
 // about

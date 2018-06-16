@@ -29,21 +29,49 @@
 </head>
 <body>
     <div class="popup-welcome">
-        <div style="font-size:26px">
+        <div class="header">
             Welcome to the Symbol Search! <button class="btn btn-sm btn-danger" onclick="closeWelcome()"><b>X</b></button>
         </div>
-        <div>
-            - <strong>This website: Helping you quick-lookup symbols (of a font)</strong>, quickly get them and put into your doc. <br />
-            - <strong>Download fonts:</strong> To display symbols as characters in your doc, you need to have the font in your system.<br />
-            - <strong>Display symbols in the web:</strong> Listing all symbols of the current font. <b>Note:</b> The first time you browse a font, will take a while for downloading font and displaying symbols (based in your internet speed). Don't worry, the font will be cached in your system (by the browser) and will not be downloaded again.<br />
-            - <strong>Click on a symbol:</strong> Show a dialog for the symbol clicked.<br />
-            - <strong>Copy as character:</strong> Copy the character into your clipboard. In Mac, it's copy the style (format) of the character, in Windows, you may need to format the character in your docs.<br />
-            - <strong>Download image:</strong> Get the symbol as an image and put into your doc, <b>no need to download the font</b>.
-        </div>
-        <hr />
-        <div style="color:grey">
-            - Cookie: We only use cookies for stored your experience, such as last Font you browsed, last Color you used.<br />
-            - Feel free to give us some feedbacks.
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#wel1">Home</a></li>
+                <li><a data-toggle="tab" id="tab2" href="#wel2">Listing symbols</a></li>
+                <li><a data-toggle="tab" id="tab3" href="#wel3">Click on a symbol</a></li>
+                <li><a data-toggle="tab" href="#wel4">Policy</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="wel1" class="tab-pane in active">
+                    <h4>This website</h4>
+                    <button class="btn btn-sm btn-info" onclick="$('#tab2').click()">Next</button>
+                    <p><strong>Lists all symbols of a character, helps you quick-lookup symbols (of a font)</strong>, quickly get them and put into your doc</p>                    
+                </div>
+                <div id="wel2" class="tab-pane">
+                    <h4>&nbsp;</h4>
+                    <button class="btn btn-sm btn-info" onclick="$('#tab3').click()">Next</button>
+                    <p>
+                        - <strong>Download fonts:</strong> To display symbols as characters in your doc, you need to have the font in your system.<br />
+                        - <strong>Display symbols</strong> in this website: Your browser automatically downloads the font (for its own, <b>only downloads at the first time</b>) to display these symbols.<br />
+                        Note: It <b>will take a while</b> for downloading font (based in your internet speed). Don't worry, your symbols will be displayed soon.<br />
+                    </p>                    
+                </div>
+                <div id="wel3" class="tab-pane">
+                    <h4>&nbsp;</h4>
+                    <button class="btn btn-sm btn-info" onclick="closeWelcome()">OK</button>
+                    <p>
+                        - <strong>Click on a symbol:</strong> Show a dialog for the symbol clicked.<br />
+                        - <strong>Copy as character:</strong> Copy the character into your clipboard. In Mac, it's copy the style (format) of the character, in Windows, you may need to format the character in your docs.<br />
+                        - <strong>Download image:</strong> Get the symbol as an image and put into your doc, <b>no need to download the font</b>.
+                    </p>                    
+                </div>
+                <div id="wel4" class="tab-pane">
+                    <h4>&nbsp;</h4><button class="btn btn-sm btn-info" onclick="closeWelcome()">OK</button><br />
+                    <p>
+                        - Cookie: We only use cookies for stored your experience, such as last Font you browsed, last Color you used.<br />
+                        - Feel free to give us some feedbacks.
+                    </p>                    
+                </div>
+            </div>
         </div>
     </div>
     <nav class="navbar navbar-expand-custom navbar-dark bg-dark fixed-top">
@@ -204,7 +232,10 @@
     <script src="~/Scripts/FileSaver.js"></script>
     <!-- jscolor.com -->
     <script src="~/Assets/js/jscolor.js"></script>
-    <script src="~/Assets/js/home.js"></script>
+    <!-- https://github.com/mathiasbynens/he/ -->
+    <script src="~/Assets/js/he.js"></script>
 
+    
+    <script src="~/Assets/js/home.js"></script>
 </body>
 </html>
