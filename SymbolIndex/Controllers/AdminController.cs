@@ -13,6 +13,9 @@ namespace SymbolIndex.Controllers
 {
     public class AdminController : Controller
     {
+        private static readonly string TEXT_LOCATION = "~/App_Data/";
+        private static readonly string CREDIT_FILE_NAME = "credits";
+
         SIContext db = new SIContext();
 
         #region Views
@@ -402,6 +405,73 @@ namespace SymbolIndex.Controllers
             }
 
             return dict;
+        }
+
+        [HttpGet]
+        public ActionResult Credits()
+        {
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
+            string content = "";
+
+            string storePath = Path.Combine(Server.MapPath(TEXT_LOCATION), CREDIT_FILE_NAME);
+
+            if (System.IO.File.Exists(storePath))
+            {
+                try
+                {
+                    using (TextReader tr = new StreamReader(storePath))
+                    {
+                        string line = "";
+                        while ((line = tr.ReadLine()) != null)
+                        {
+                            content += line + "\n";
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    content = "CAN NOT OPEN THE FILE";
+                }
+            }
+
+            ViewData["content"] = content;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Credits(string content)
+        {
+            if (!Verifier.CheckLogin(Request))
+            {
+                return RedirectToAction("Login", new { url = Request.Url.AbsoluteUri });
+            }
+
+            string storePath = Path.Combine(Server.MapPath(TEXT_LOCATION), CREDIT_FILE_NAME);            
+            if (System.IO.File.Exists(storePath))
+            {
+                System.IO.File.Delete(storePath);
+            }
+
+            try
+            {
+                System.IO.File.Create(storePath).Dispose();
+
+                using (StreamWriter sw = new StreamWriter(storePath))
+                {
+                    sw.Write(content);
+                }
+            }
+            catch (Exception)
+            {
+                content = "CAN NOT OPEN THE FILE";
+            }
+
+            ViewData["content"] = content;
+            return View();
         }
     }
 }

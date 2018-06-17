@@ -1,0 +1,1 @@
+﻿$('#credit').html($('#credit').html().replace(/\[/g, '<').replace(/\]/g, '>'));

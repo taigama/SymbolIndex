@@ -277,6 +277,7 @@
     <Content Include="Assets\font-awesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Assets\image\avatar.png" />
     <Content Include="Assets\image\download.ico" />
+    <Content Include="Assets\js\about.js" />
     <Content Include="Assets\js\bootstrap-select.min.js" />
     <Content Include="Assets\js\bootstrap.bundle.js" />
     <Content Include="Assets\js\bootstrap.bundle.js.map" />
@@ -471,6 +472,7 @@
     <Content Include="Views\Home\_FontStyle.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Admin\Credits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

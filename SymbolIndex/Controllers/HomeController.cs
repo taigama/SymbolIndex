@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +12,9 @@ namespace SymbolIndex.Controllers
     
     public class HomeController : Controller
     {
+        private static readonly string TEXT_LOCATION = "~/App_Data/";
+        private static readonly string CREDIT_FILE_NAME = "credits";
+
         SIContext db = new SIContext();
 
         [HttpGet]
@@ -35,6 +39,29 @@ namespace SymbolIndex.Controllers
 
         public ActionResult About()
         {
+            string content = "";
+            string storePath = Path.Combine(Server.MapPath(TEXT_LOCATION), CREDIT_FILE_NAME);
+
+            if (System.IO.File.Exists(storePath))
+            {
+                try
+                {
+                    using (TextReader tr = new StreamReader(storePath))
+                    {
+                        string line = "";
+                        while ((line = tr.ReadLine()) != null)
+                        {
+                            content += line + "\n";
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    content = "ERROR! CAN NOT OPEN THE FILE";
+                }
+            }
+
+            ViewData["content"] = content;
             return View();
         }
 

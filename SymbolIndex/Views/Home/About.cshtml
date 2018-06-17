@@ -55,12 +55,15 @@
             . Chúng tôi sử dụng cookie để lưu lại thông tin font lần cuối bạn truy cập. Khi bạn mở lại web, thông tin font này sẽ được sử dụng.<br />
             . (English) We use the cookie for storing the last font info that you has accessed. When you come back, the info (of the font) will be used.
         </p>
+        <p id="credit" style="text-align:left">
+            @((string)ViewData["content"])
+        </p>
     </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="~/Assets/js/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/umd/popper.min.js"></script>
     <script src="~/Assets/js/bootstrap.min.js"></script>
-
+    <script src="~/Assets/js/about.js"></script>
 </body>
 </html>

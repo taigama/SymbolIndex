@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Credits";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Credits</h2>
+
+@{ 
+    using (Html.BeginForm())
+    {
+        <textarea name="content" rows="20" cols="100">@((string)ViewData["content"])</textarea>
+        <input value="Gửi" type="submit" />
+    }
+}
