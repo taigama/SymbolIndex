@@ -94,7 +94,7 @@
                         </div>
                     </li>
                     <li class="nav-item vcenter blink_me" style="min-width:160px">
-                        <a class="mtooltip" href="@fontCurrent.FontUrl">
+                        <a id="font_url" class="mtooltip" href="@fontCurrent.FontUrl">
                             <img class="navbar-icon" src="~/Assets/image/download.ico">
                             <text style="color:#00ffff"> Download font</text>
                             <span class="mtooltiptext">Download the font to use the below symbols (some fonts are already stored in your system, e.g. Wingdings)</span>
@@ -208,15 +208,14 @@
     <div id="dialog-item" class="popup">
         <a href="#" class="link-img"><canvas id="canvas-symbol" class="canvas-symbol">Sorry, your browser doesn't has canvas</canvas></a>
         <div class="area-btn">
-            <button class="btn btn-danger btn-sm float-right" style="margin-bottom:17px" onclick="closeDialog()">X</button>
-            <button class="btn btn-info btn-symbol" onclick="copyText()">Copy as character</button>
-            <a href="#" class="btn btn-info btn-symbol link-img" style="color:white">Download image</a>
+            <input id="color-picker" style="height:33px" value="F00" class="jscolor {width:100, padding:0, shadow:true,
+    borderWidth:0, backgroundColor:'transparent', insetColor:'#000'}">
+            <button class="btn btn-danger btn-sm" onclick="closeDialog()">X</button>
+            <button class="btn btn-info btn-sm btn-symbol" onclick="copyText()">Copy raw character</button>
+            <button class="btn btn-info btn-sm btn-symbol" onclick="copyTextWithFormat()">Copy formated character</button>
+            <a href="#" class="btn btn-info btn-symbol link-img" style="color:white;display:none">Download image</a>
         </div>
-        <hr style="position:relative;margin-top:145px;margin-bottom:10px" />
-        <div>
-            Colors: <input id="color-picker" value="F00" class="jscolor {width:100, padding:0, shadow:true,
-    borderWidth:0, backgroundColor:'transparent', insetColor:'#000'}"> (Image only)
-        </div>
+        <hr style="position:relative;margin-top:115px;margin-bottom:10px" />
         <div id="dialog-tags" class="dialog-tags">Tags: </div>
     </div>
 

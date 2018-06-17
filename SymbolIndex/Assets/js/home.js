@@ -106,8 +106,17 @@ changeFontCanvas();
 // ------------ copy ----------------
 function copyText() {
     var dt = new clipboard.DT();
-    var data = '<div style="font-family:' +
-        "'" + $('#font_name').text() + "'" +
+    dt.setData("text/plain", item.html());
+    clipboard.write(dt);
+    showSnackbar();
+}
+
+// ------------ copy ----------------
+function copyTextWithFormat() {
+    var dt = new clipboard.DT();
+    dt.setData("text/plain", item.html());
+    var data = '<div style="font-family:' + "'" + $('#font_name').text() + "'" +
+        ";color:#" + $('#color-picker').val() +
         '"><font size="8" face="' +
         $('#font_name').text() + '">' +
         he.encode(item.text()) +
@@ -116,6 +125,7 @@ function copyText() {
     clipboard.write(dt);
     showSnackbar();
 }
+
 
 var link = $('.link-img');
 var downloadImg;
