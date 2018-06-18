@@ -58,11 +58,9 @@
                 <div id="wel3" class="tab-pane">
                     <h4>&nbsp;</h4>
                     <button class="btn btn-sm btn-info" onclick="closeWelcome()">OK</button>
-                    <p>
-                        - <strong>Click on a symbol:</strong> Show a dialog for the symbol clicked.<br />
-                        - <strong>Copy as character:</strong> Copy the character into your clipboard. In Mac, it's copy the style (format) of the character, in Windows, you may need to format the character in your docs.<br />
-                        - <strong>Download image:</strong> Get the symbol as an image and put into your doc, <b>no need to download the font</b>.
-                    </p>                    
+                    <div>
+                        <img src="/Assets/image/guide.png" />
+                    </div>                    
                 </div>
                 <div id="wel4" class="tab-pane">
                     <h4>&nbsp;</h4><button class="btn btn-sm btn-info" onclick="closeWelcome()">OK</button><br />
@@ -95,7 +93,7 @@
                     </li>
                     <li class="nav-item vcenter blink_me" style="min-width:160px">
                         <a id="font_url" class="mtooltip" href="@fontCurrent.FontUrl">
-                            <img class="navbar-icon" src="~/Assets/image/download.ico">
+                            <img class="navbar-icon" src="/Assets/image/download.ico">
                             <text style="color:#00ffff"> Download font</text>
                             <span class="mtooltiptext">Download the font to use the below symbols (some fonts are already stored in your system, e.g. Wingdings)</span>
                         </a>

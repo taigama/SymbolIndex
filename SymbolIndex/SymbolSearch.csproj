@@ -277,6 +277,7 @@
     <Content Include="Assets\font-awesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Assets\image\avatar.png" />
     <Content Include="Assets\image\download.ico" />
+    <Content Include="Assets\image\guide.png" />
     <Content Include="Assets\js\about.js" />
     <Content Include="Assets\js\bootstrap-select.min.js" />
     <Content Include="Assets\js\bootstrap.bundle.js" />
